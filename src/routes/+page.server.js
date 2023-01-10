@@ -65,7 +65,7 @@ export const actions = {
         parseLatLon(latLonData, location);
         // console.log('location obj', location);
         try {
-            let back = 14; // 1-30
+            let back = 7; // 1-30
             let detail = 'full'; // simple/full
             let hotspot = false; 
             let maxResults = undefined; // 1-10000, undefined returns all
