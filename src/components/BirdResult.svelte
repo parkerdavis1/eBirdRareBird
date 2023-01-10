@@ -7,7 +7,7 @@
 
 </script>
 
-    <div class={id}>
+    <div class:gray={id%2 === 0}>
         <p class="count">{bird.howMany}</p>
         <p>
             <a href="{checklistLink}">
@@ -22,25 +22,22 @@
         <p>
             {bird.userDisplayName}
         </p>
-
-        {#if bird.hasComments}
-            <span class="comments">Comments</span>
-        {/if}
-
-        {#if bird.hasRichMedia}
-            <span class="media">Media</span>
-        {/if}
     </div>
 
 
 <style>
     div {
-        /* border-bottom: 1px dotted black;  */
         padding-left: 1rem;
         display: flex;
         flex-direction: row;
-        gap: 1rem;
-        height: 2rem;
+        column-gap: 1rem;
+        flex-wrap: wrap;
+        row-gap: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    p {
+        margin: 0.25rem;
     }
     
     .count {
@@ -52,5 +49,13 @@
         color: #222;
     }
 
+    .gray {
+        background-color: #EEE;
+    }
 
+    @media (max-width: 900px) {
+        div {
+            /* flex-direction: column; */
+        }
+    }
 </style>
