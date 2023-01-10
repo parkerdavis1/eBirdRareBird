@@ -53,9 +53,9 @@
         background-color: #EEE;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 500px) {
         div {
-            /* flex-direction: column; */
+            flex-direction: column;
         }
     }
 </style>
