@@ -35,12 +35,13 @@
 
 <h1>eBird Rare Bird Alert</h1>
 
-<form method="POST">
+<form method="POST" class="container">
     <!-- <LocationField /> -->
     <label for="location">GPS coordinates</label>
     <input type="text" id="location" name="location" bind:value={$latLon} placeholder="GPS coordinates">
+    
+    <button class="contrast outline" on:click={handleLocate}>Locate</button>
 
-    <button on:click={handleLocate}>Locate</button>
 
     <button type="submit">Submit</button>
 </form>
@@ -66,5 +67,8 @@
     :root {
         font-size: 14px;
         font-family: sans-serif;
+    }
+    form {
+        max-width: 40rem;
     }
 </style>

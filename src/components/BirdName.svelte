@@ -15,12 +15,18 @@
 <div>
     <details>
         <summary><span>{birdName}</span></summary>
-        {#each speciesArray as bird, id}
-            <BirdResult 
-                bird={bird}
-                id={id}
-            />
-        {/each}
+        <table role="grid">
+            <tbody>
+                {#each speciesArray as bird, id}
+                    <tr>
+                    <BirdResult 
+                        bird={bird}
+                        id={id}
+                    />
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
     </details>
 </div>
 

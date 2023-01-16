@@ -7,22 +7,23 @@
 
 </script>
 
-    <div class:gray={id%2 === 0}>
-        <p class="count">{bird.howMany}</p>
-        <p>
+    <!-- <div class:gray={id%2 === 0}> -->
+    <!-- <td> -->
+        <td class="count">{bird.howMany}</td>
+        <td>
             <a href="{checklistLink}">
                 {bird.obsDt}
             </a>
-        </p>
-        <p>
+        </td>
+        <td>
             <a href={googleMapsLink}>
                 {bird.locName}
             </a>
-        </p>
-        <p>
+        </td>
+        <td>
             {bird.userDisplayName}
-        </p>
-    </div>
+        </td>
+    <!-- </td> -->
 
 
 <style>
