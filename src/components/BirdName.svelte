@@ -3,6 +3,7 @@
 
     export let birdName;
     export let birdData;
+    export let showAll
 
     function getSpeciesData(obj) {
         return obj[birdName];
@@ -13,7 +14,7 @@
 
 
 <div>
-    <details>
+    <details bind:open={showAll}>
         <summary><span>{birdName}</span></summary>
         <table role="grid">
             <tbody>

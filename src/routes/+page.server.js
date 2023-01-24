@@ -58,18 +58,22 @@ function getBirdList(array) {
 }
 
 export const actions = {
-    default: async ({ request }) => {
+    radius: async ({ request }) => {
         const data = await request.formData();
         const latLonData = data.get('location');
         // console.log('latLonData', latLonData);
         parseLatLon(latLonData, location);
         // console.log('location obj', location);
+        const days = data.get('days');
+        console.log('days', days);
+        const distance = data.get('distance');
+        console.log('distance', distance);
         try {
-            let back = 7; // 1-30
+            let back = days; // 1-30
             let detail = 'full'; // simple/full
             let hotspot = false; 
             let maxResults = undefined; // 1-10000, undefined returns all
-            let dist = 50; // 1-50
+            let dist = distance; // 1-50
             const queries = `back=${back}&detail=${detail}&hotspot=${hotspot}&dist=${dist}${maxResults ? `&maxResults=${maxResults}`: ''}`
             const res = await fetch(`https://api.ebird.org/v2/data/obs/geo/recent/notable?lat=${location.lat}&lng=${location.lon}&${queries}`, requestOptions);
             const resJson = await res.json();
@@ -78,7 +82,23 @@ export const actions = {
             // console.log('\n\n-----BIRD DATA-----\n\n', birdData, '\n\n');
 
         } catch (err) {
-            console.log(err)
+            console.log(err);
+        }
+    },
+    
+    region: async ({ request }) => {
+        const data = await request.formData();
+        const region = data.get('region');
+        const days = data.get('days');
+        const queries = `?detail=full&back=${days}`
+        try {
+            const res = await fetch(`https://api.ebird.org/v2/data/obs/${region}/recent/notable${queries}`, requestOptions);
+            const resJson = await res.json();
+            birds = getBirdList(resJson);
+            birdData = sortBirds(resJson);
+
+        } catch (err) {
+            console.log(err);
         }
     }
 }
