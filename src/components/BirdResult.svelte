@@ -1,6 +1,6 @@
 <script>
     export let bird;
-    export let id;
+    // export let id;
 
     const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${bird.lat},${bird.lng}`;
     const checklistLink = `https://ebird.org/checklist/${bird.subId}`
@@ -10,6 +10,9 @@
     <!-- <div class:gray={id%2 === 0}> -->
     <!-- <td> -->
         <td class="count">{bird.howMany}</td>
+        <td>
+            {bird.comName}
+        </td>
         <td>
             <a href="{checklistLink}">
                 {bird.obsDt}

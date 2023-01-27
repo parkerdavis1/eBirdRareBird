@@ -9,7 +9,7 @@
         return obj[birdName];
     }
 
-    const speciesArray = getSpeciesData(birdData);
+    const obsOfSpecies = getSpeciesData(birdData);
 </script>
 
 
@@ -18,7 +18,7 @@
         <summary><span>{birdName}</span></summary>
         <table role="grid">
             <tbody>
-                {#each speciesArray as bird, id}
+                {#each obsOfSpecies as bird, id}
                     <tr>
                     <BirdResult 
                         bird={bird}

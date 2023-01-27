@@ -1,3 +1,3 @@
-import { writable } from "svelte/store";
+import { writable, derived } from "svelte/store";
 
-export const latLon = writable('');
+export const days = writable(3);

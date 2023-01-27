@@ -1,5 +1,6 @@
 <script>
-    import { latLon } from '../store.js'
+    // import { latLon } from '../store.js'
+    let latLon;
 
     const handleLocate = (event) => {
     event.preventDefault();
@@ -19,7 +20,7 @@
       console.log(`Longitude: ${coord.longitude}`);
       console.log(`More or less ${coord.accuracy} meters.`);
       console.log(position);
-      $latLon = `${position.coords.latitude},${position.coords.longitude}`
+      latLon = `${position.coords.latitude},${position.coords.longitude}`
     }
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
@@ -31,13 +32,13 @@
 
 <form action="">
     <label for="location">GPS coordinates</label>
-    <input type="text" id="location" bind:value={$latLon} placeholder="GPS coordinates">
+    <input type="text" id="location" bind:value={latLon} placeholder="GPS coordinates">
 
     <button on:click={handleLocate}>Locate</button>
 </form>
 
 
-<p>{$latLon}</p>
+<p>{latLon}</p>
 
 <style>
     form {
