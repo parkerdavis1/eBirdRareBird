@@ -55,7 +55,7 @@
 {#if formComment}
     <tr>
         <td colspan="5">
-            {formComment}
+            <small>{formComment}</small>
         </td>
     </tr>
 {/if}
@@ -65,4 +65,5 @@
     .count {
         font-weight: bold;
     }
+
 </style>

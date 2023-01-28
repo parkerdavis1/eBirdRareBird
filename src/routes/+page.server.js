@@ -37,7 +37,7 @@ export const actions = {
             const resJson = await res.json();
             // console.log(resJson);
             return { 
-                raw: resJson,
+                radius: resJson,
             };
 
         } catch (err) {
@@ -54,7 +54,7 @@ export const actions = {
             const res = await fetch(`https://api.ebird.org/v2/data/obs/${region}/recent/notable${queries}`, requestOptions);
             const resJson = await res.json();
             return {
-                raw: resJson
+                region: resJson
             }
 
         } catch (err) {

@@ -65,17 +65,31 @@
         return arr.sort();
     }
 
-    let groupList;
-    let birdData;
-    let rawBirdData;
+    let radiusGroupList;
+    let regionGroupList;
+    let groupedRadiusBirdData;
+    let groupedRegionBirdData;
+    let regionBirdData;
+    let radiusBirdData;
 
-    $: if (form?.raw) {
-        rawBirdData = form.raw;
+    $: if (form?.region) {
+        regionBirdData = form.region;
     }
-    $: if (rawBirdData) {
-        birdData = groupBy(rawBirdData, sortType);
-        groupList = Object.keys(birdData).sort()
-        console.log(birdData);
+    $: if (form?.radius) {
+        radiusBirdData = form.radius;
+    }
+
+    $: if (radiusBirdData) {
+        radiusBirdData = radiusBirdData;
+        groupedRadiusBirdData = groupBy(radiusBirdData, sortType);
+        radiusGroupList = Object.keys(groupedRadiusBirdData).sort()
+        console.log(groupedRadiusBirdData);
+    }
+    $: if (regionBirdData) {
+        regionBirdData = regionBirdData;
+        groupedRegionBirdData = groupBy(regionBirdData, sortType);
+        regionGroupList = Object.keys(groupedRegionBirdData).sort()
+        console.log(groupedRegionBirdData);
     }
 
 </script>
@@ -117,33 +131,67 @@
 </div>
 
 <hr>
+{#if radiusRegion === 'radius'}
+    {#if radiusGroupList}
+        {#if sortType === 'species'}
+            {#each radiusGroupList as bird}
+                <BirdName 
+                    birdName={bird} 
+                    birdData={groupedRadiusBirdData}
+                    showAll={showAll}
 
-{#if groupList}
-    {#if sortType === 'species'}
-        {#each groupList as bird}
-            <BirdName 
-                birdName={bird} 
-                birdData={birdData}
-                showAll={showAll}
+                    allComments={allComments}
+                />
+            {/each}
 
-                allComments={allComments}
-            />
-        {/each}
+        {:else if sortType === 'location'}
 
-    {:else if sortType === 'location'}
+            {#each radiusGroupList as location}
+                <LocationName 
+                    locationName={location} 
+                    birdData={groupedRadiusBirdData}
+                    showAll={showAll}
 
-        {#each groupList as location}
-            <LocationName 
-                locationName={location} 
-                birdData={birdData}
-                showAll={showAll}
+                    allComments={allComments}
+                />
+            {/each}
 
-                allComments={allComments}
-            />
-        {/each}
-
+        {/if}
     {/if}
+{:else if radiusRegion === 'region'}
+
+    {#if regionGroupList}
+        {#if sortType === 'species'}
+            {#each regionGroupList as bird}
+                <BirdName 
+                    birdName={bird} 
+                    birdData={groupedRegionBirdData}
+                    showAll={showAll}
+
+                    allComments={allComments}
+                />
+            {/each}
+
+        {:else if sortType === 'location'}
+
+            {#each regionGroupList as location}
+                <LocationName 
+                    locationName={location} 
+                    birdData={groupedRegionBirdData}
+                    showAll={showAll}
+
+                    allComments={allComments}
+                />
+            {/each}
+
+        {/if}
+    {/if}
+
 {/if}
+
+
+
+
 
 
 <style>
