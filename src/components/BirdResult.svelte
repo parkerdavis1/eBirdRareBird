@@ -1,65 +1,68 @@
 <script>
+    import { enhance } from '$app/forms';
+
     export let bird;
-    // export let id;
+    export let sortType;
+    export let allComments;
 
     const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${bird.lat},${bird.lng}`;
     const checklistLink = `https://ebird.org/checklist/${bird.subId}`
 
+    const checklistId = bird.subId;
+    const obsId = bird.obsId;
+    let comments;
+
+    $: formComment = allComments[obsId]
 </script>
 
-    <!-- <div class:gray={id%2 === 0}> -->
-    <!-- <td> -->
-        <td class="count">{bird.howMany}</td>
+
+<tr>
+    <td class="count">{bird.howMany? bird.howMany : 'X'}</td>
+
+    {#if sortType !== 'bird'}
         <td>
             {bird.comName}
         </td>
-        <td>
-            <a href="{checklistLink}">
-                {bird.obsDt}
-            </a>
-        </td>
+    {/if}
+
+    <td>
+        <a href="{checklistLink}">
+            {bird.obsDt}
+        </a>
+    </td>
+
+    {#if sortType !== 'location'}
         <td>
             <a href={googleMapsLink}>
                 {bird.locName}
             </a>
         </td>
-        <td>
-            {bird.userDisplayName}
+    {/if}
+
+    <td>
+        {bird.userDisplayName}
+    </td>
+
+    <td>
+        <form method="POST" action="?/getComments" use:enhance>
+            <input type="hidden" name="checklistId" value={bird.subId}>
+            <input type="hidden" name="obsId" value={bird.obsId}>
+            <button type="submit" disabled={formComment} hidden={formComment}>+</button>
+        </form>
+    </td>
+</tr>
+
+{#if formComment}
+    <tr>
+        <td colspan="5">
+            {formComment}
         </td>
-    <!-- </td> -->
+    </tr>
+{/if}
 
 
-<style>
-    div {
-        padding-left: 1rem;
-        display: flex;
-        flex-direction: row;
-        column-gap: 1rem;
-        flex-wrap: wrap;
-        row-gap: 0.5rem;
-        padding: 0.5rem;
-    }
-
-    p {
-        margin: 0.25rem;
-    }
-    
+<style>    
     .count {
         font-weight: bold;
-    }
-
-    .media,
-    .comments {
-        color: #222;
-    }
-
-    .gray {
-        background-color: #EEE;
-    }
-
-    @media (max-width: 500px) {
-        div {
-            flex-direction: column;
-        }
     }
 </style>

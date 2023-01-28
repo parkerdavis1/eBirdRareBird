@@ -4,6 +4,7 @@
     export let birdName;
     export let birdData;
     export let showAll
+    export let allComments;
 
     function getSpeciesData(obj) {
         return obj[birdName];
@@ -19,12 +20,12 @@
         <table role="grid">
             <tbody>
                 {#each obsOfSpecies as bird, id}
-                    <tr>
                     <BirdResult 
                         bird={bird}
-                        id={id}
+                        sortType="bird"
+                        
+                        allComments={allComments}
                     />
-                    </tr>
                 {/each}
             </tbody>
         </table>

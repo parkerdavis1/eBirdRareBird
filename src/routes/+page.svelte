@@ -20,6 +20,15 @@
     let region = "";
     let showAll = false;
     let sortType;
+    let allComments = {}
+    $: if (form) {
+        for (const [key, value] of Object.entries(form)) {
+            if (key !== 'raw') {
+                allComments[key] = value;
+            }
+        }
+        console.log(allComments);
+    }
 
     function groupBy (array, sortType) {
         let groupedObj = {};
@@ -44,7 +53,6 @@
         return groupedObj;
     }
 
-
     function getBirdList(array) {
         let arr = [];
         array.forEach(birdObs => {
@@ -59,9 +67,13 @@
 
     let groupList;
     let birdData;
+    let rawBirdData;
 
     $: if (form?.raw) {
-        birdData = groupBy(form.raw, sortType);
+        rawBirdData = form.raw;
+    }
+    $: if (rawBirdData) {
+        birdData = groupBy(rawBirdData, sortType);
         groupList = Object.keys(birdData).sort()
         console.log(birdData);
     }
@@ -113,6 +125,8 @@
                 birdName={bird} 
                 birdData={birdData}
                 showAll={showAll}
+
+                allComments={allComments}
             />
         {/each}
 
@@ -123,6 +137,8 @@
                 locationName={location} 
                 birdData={birdData}
                 showAll={showAll}
+
+                allComments={allComments}
             />
         {/each}
 

@@ -3,7 +3,9 @@
 
     export let locationName;
     export let birdData;
-    export let showAll
+    export let showAll;
+    export let allComments;
+
 
     function createSpeciesObj(array) {
         let sortedObj = {};
@@ -27,8 +29,11 @@
         return sortedArray.flat();
     }
 
-    function getAndSortObsFromLocation(obj) {
+    function getAndSortObsFromLocation(obj, birdSort = false) {
         let observations = obj[locationName];
+        if (!birdSort) {
+            return observations;
+        }
         let obsArr = turnObjIntoArray(createSpeciesObj(observations));
         return obsArr;
     }
@@ -44,11 +49,12 @@
         <table role="grid">
             <tbody>
                 {#each obsOfLocation as observation}
-                    <tr>
                     <BirdResult 
                         bird={observation}
+                        sortType="location"
+
+                        allComments={allComments}
                     />
-                    </tr>
                 {/each}
             </tbody>
         </table>

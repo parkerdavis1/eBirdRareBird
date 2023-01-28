@@ -35,6 +35,7 @@ export const actions = {
             const queries = `back=${days}&detail=${detail}&hotspot=${hotspot}&dist=${distance}${maxResults ? `&maxResults=${maxResults}`: ''}`
             const res = await fetch(`https://api.ebird.org/v2/data/obs/geo/recent/notable?lat=${location.lat}&lng=${location.lon}&${queries}`, requestOptions);
             const resJson = await res.json();
+            // console.log(resJson);
             return { 
                 raw: resJson,
             };
@@ -59,5 +60,30 @@ export const actions = {
         } catch (err) {
             console.log(err);
         }
+    },
+
+    getComments: async ({ request }) => {
+        const data = await request.formData();
+        const checklistId = data.get('checklistId');
+        const obsId = data.get('obsId');
+        try {
+            const res = await fetch(`https://api.ebird.org/v2/product/checklist/view/${checklistId}`, requestOptions)
+            const resJson = await res.json()
+            const obsArr = resJson.obs;
+    
+            const specificObs = obsArr.find(obs => obs.obsId === obsId);
+    
+            let comments = specificObs.comments;
+            // console.log(comments);
+            const returnObject = {};
+            returnObject[obsId] = comments;
+            // console.log('RETURN OBJECT!!!!!', returnObject)
+
+            return returnObject;
+
+        } catch (err){
+            console.log(err);
+        }
+
     }
 }
