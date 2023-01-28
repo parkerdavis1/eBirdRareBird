@@ -23,11 +23,11 @@
     let allComments = {}
     $: if (form) {
         for (const [key, value] of Object.entries(form)) {
-            if (key !== 'raw') {
+            if (key !== 'region' && key !== 'radius') {
                 allComments[key] = value;
             }
         }
-        console.log(allComments);
+        // console.log(allComments);
     }
 
     function groupBy (array, sortType) {
@@ -75,18 +75,17 @@
     $: if (form?.region) {
         regionBirdData = form.region;
     }
+
     $: if (form?.radius) {
         radiusBirdData = form.radius;
     }
 
     $: if (radiusBirdData) {
-        radiusBirdData = radiusBirdData;
         groupedRadiusBirdData = groupBy(radiusBirdData, sortType);
         radiusGroupList = Object.keys(groupedRadiusBirdData).sort()
         console.log(groupedRadiusBirdData);
     }
     $: if (regionBirdData) {
-        regionBirdData = regionBirdData;
         groupedRegionBirdData = groupBy(regionBirdData, sortType);
         regionGroupList = Object.keys(groupedRegionBirdData).sort()
         console.log(groupedRegionBirdData);
@@ -139,27 +138,22 @@
                     birdName={bird} 
                     birdData={groupedRadiusBirdData}
                     showAll={showAll}
-
                     allComments={allComments}
                 />
             {/each}
-
         {:else if sortType === 'location'}
-
             {#each radiusGroupList as location}
                 <LocationName 
                     locationName={location} 
                     birdData={groupedRadiusBirdData}
                     showAll={showAll}
-
                     allComments={allComments}
                 />
             {/each}
-
         {/if}
     {/if}
-{:else if radiusRegion === 'region'}
 
+{:else if radiusRegion === 'region'}
     {#if regionGroupList}
         {#if sortType === 'species'}
             {#each regionGroupList as bird}
@@ -171,9 +165,7 @@
                     allComments={allComments}
                 />
             {/each}
-
         {:else if sortType === 'location'}
-
             {#each regionGroupList as location}
                 <LocationName 
                     locationName={location} 
@@ -183,10 +175,8 @@
                     allComments={allComments}
                 />
             {/each}
-
         {/if}
     {/if}
-
 {/if}
 
 
