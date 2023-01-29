@@ -92,7 +92,7 @@
     }
 
 </script>
-
+    
 <h1>eBird Rare Bird Alert</h1>
 <div>
     <div class="grid form-select">
@@ -130,6 +130,7 @@
 </div>
 
 <hr>
+
 {#if radiusRegion === 'radius'}
     {#if radiusGroupList}
         {#if sortType === 'species'}
@@ -178,9 +179,6 @@
         {/if}
     {/if}
 {/if}
-
-
-
 
 
 
