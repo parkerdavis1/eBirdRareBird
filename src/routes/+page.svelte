@@ -16,7 +16,7 @@
     let distance = 20;
     $: distance_mi = Math.round(distance * 0.62137119);
     let radius = true;
-    let radiusRegion = 'radius';
+    let radiusRegion = 'region';
     let region = "";
     let showAll = false;
     let sortType;

@@ -2,7 +2,7 @@
     import { enhance } from '$app/forms';
 
     import { days } from '../store';
-    let region = '';
+    let region = 'US-AZ-013';
 </script>
 
 
