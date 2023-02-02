@@ -1,4 +1,5 @@
 <script>
+    import BirdObservation from "./BirdObservation.svelte";
     import BirdResult from "./BirdResult.svelte";
 
     export let birdName;
@@ -13,11 +14,19 @@
     const obsOfSpecies = getSpeciesData(birdData);
 </script>
 
-
 <div>
     <details bind:open={showAll}>
         <summary><span>{birdName}</span></summary>
-        <table role="grid">
+        {#each obsOfSpecies as bird}
+            <hr>
+            <BirdObservation 
+                bird={bird}
+                sortType="bird"
+                allComments={allComments}
+            />
+        {/each}
+
+        <!-- <table role="grid">
             <tbody>
                 {#each obsOfSpecies as bird, id}
                     <BirdResult 
@@ -28,7 +37,8 @@
                     />
                 {/each}
             </tbody>
-        </table>
+        </table> -->
+
     </details>
 </div>
 
