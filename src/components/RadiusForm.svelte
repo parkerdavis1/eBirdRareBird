@@ -33,7 +33,7 @@
 <form method="POST" action="?/radius" class="container" use:enhance>
     <div class="grid">
         <div>
-            <label for="location">GPS coordinates</label>
+            <label for="location" hidden>GPS coordinates</label>
             <input type="text" id="location" name="location" bind:value={latLon} placeholder="GPS coordinates" required>
             
             <button class="p-1 rounded 
@@ -41,15 +41,12 @@
                     on:click|preventDefault={handleLocate}>Locate</button>
 
         </div>
-        <div>
-            <label for="days">Time period (days ago): {$days}
-                <input type="range" name="days" id="days" min="1" max="30" bind:value={$days}>
-            </label>
 
-            <label for="distance">Distance: {distance_mi}mi ({distance}km)
-                <input type="range" name="distance" id="distance" min="1" max="50" bind:value={distance}>
-            </label>
-        </div>
+        <label for="days">Time period (days ago): {$days}</label>
+        <input type="range" name="days" id="days" min="1" max="30" bind:value={$days}>
+
+        <label for="distance" class="flex justify-between">Distance: {distance_mi}mi ({distance}km)</label>
+        <input type="range" name="distance" id="distance" min="1" max="50" bind:value={distance}>
     </div>
     <button type="submit" class="submit-button">Submit</button>
 </form>
