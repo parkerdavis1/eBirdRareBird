@@ -128,51 +128,47 @@
     </div>
 </div>
 
-{#if radiusRegion === 'radius'}
-    {#if radiusGroupList}
-        {#if sortType === 'species'}
-            {#each radiusGroupList as bird}
-                <BirdName 
-                    birdName={bird} 
-                    birdData={groupedRadiusBirdData}
-                    showAll={showAll}
-                    allComments={allComments}
-                />
-            {/each}
-        {:else if sortType === 'location'}
-            {#each radiusGroupList as location}
-                <LocationName 
-                    locationName={location} 
-                    birdData={groupedRadiusBirdData}
-                    showAll={showAll}
-                    allComments={allComments}
-                />
-            {/each}
-        {/if}
+{#if radiusRegion === 'radius' && radiusGroupList}
+    {#if sortType === 'species'}
+        {#each radiusGroupList as bird (bird)}
+            <BirdName 
+                birdName={bird} 
+                birdData={groupedRadiusBirdData}
+                showAll={showAll}
+                allComments={allComments}
+            />
+        {/each}
+    {:else if sortType === 'location'}
+        {#each radiusGroupList as location (location)}
+            <LocationName 
+                locationName={location} 
+                birdData={groupedRadiusBirdData}
+                showAll={showAll}
+                allComments={allComments}
+            />
+        {/each}
     {/if}
 
-{:else if radiusRegion === 'region'}
-    {#if regionGroupList}
-        {#if sortType === 'species'}
-            {#each regionGroupList as bird}
-                <BirdName 
-                    birdName={bird} 
-                    birdData={groupedRegionBirdData}
-                    showAll={showAll}
+{:else if radiusRegion === 'region' && regionGroupList}
+    {#if sortType === 'species'}
+        {#each regionGroupList as bird (bird)}
+            <BirdName 
+                birdName={bird} 
+                birdData={groupedRegionBirdData}
+                showAll={showAll}
 
-                    allComments={allComments}
-                />
-            {/each}
-        {:else if sortType === 'location'}
-            {#each regionGroupList as location}
-                <LocationName 
-                    locationName={location} 
-                    birdData={groupedRegionBirdData}
-                    showAll={showAll}
+                allComments={allComments}
+            />
+        {/each}
+    {:else if sortType === 'location'}
+        {#each regionGroupList as location (location)}
+            <LocationName 
+                locationName={location} 
+                birdData={groupedRegionBirdData}
+                showAll={showAll}
 
-                    allComments={allComments}
-                />
-            {/each}
-        {/if}
+                allComments={allComments}
+            />
+        {/each}
     {/if}
 {/if}
