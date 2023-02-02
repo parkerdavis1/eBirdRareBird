@@ -14,8 +14,8 @@
     const obsOfSpecies = getSpeciesData(birdData);
 </script>
 
-<details bind:open={showAll} class="my-2">
-    <summary class="cursor-pointer"><span>{birdName}</span></summary>
+<details bind:open={showAll}>
+    <summary class="cursor-pointer my-2"><span>{birdName}</span></summary>
     {#each obsOfSpecies as bird}
         <BirdObservation 
             bird={bird}
@@ -23,6 +23,7 @@
             allComments={allComments}
         />
     {/each}
+    <hr>
 
     <!-- <table role="grid">
         <tbody>

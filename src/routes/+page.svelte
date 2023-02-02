@@ -94,7 +94,8 @@
 
 <h1 class="text-center text-xl font-medium pb-2">eBird Rare Bird Alert</h1>
 
-<div class="bg-slate-50 p-2">
+<div class="p-2
+        bg-slate-50 dark:bg-slate-800">
     <div>
         <select name="radiusRegion" id="radiusRegion" bind:value={radiusRegion}>
             <option value="radius">Radius from...</option>
@@ -112,8 +113,6 @@
 
 </div>
 
-<hr>
-
 <div class="flex flex-row justify-between my-3">
     <div>
         <input type="checkbox" id="showAll" bind:checked={showAll}>
@@ -128,8 +127,6 @@
         </select>
     </div>
 </div>
-
-<hr>
 
 {#if radiusRegion === 'radius'}
     {#if radiusGroupList}

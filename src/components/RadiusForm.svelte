@@ -36,7 +36,9 @@
             <label for="location">GPS coordinates</label>
             <input type="text" id="location" name="location" bind:value={latLon} placeholder="GPS coordinates" required>
             
-            <button class="secondary" on:click|preventDefault={handleLocate}>Locate</button>
+            <button class="p-1 rounded 
+                            bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600"
+                    on:click|preventDefault={handleLocate}>Locate</button>
 
         </div>
         <div>
@@ -49,5 +51,5 @@
             </label>
         </div>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" class="submit-button">Submit</button>
 </form>

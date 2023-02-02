@@ -43,10 +43,10 @@
     <div class="col-start-2 flex items-baseline">
         <div>
             <span class="mx-1 text-sm whitespace-nowrap">{bird.comName}</span>
-            <span class="mx-1 text-xs italic text-gray-500 whitespace-nowrap">{bird.sciName}</span>
+            <span class="mx-1 text-xs italic text-gray-500 dark:text-gray-400 whitespace-nowrap">{bird.sciName}</span>
         </div>
 
-        <span class="mx-3 text-xs font-medium {bird.obsReviewed? 'text-green-700' : 'text-yellow-700'}">{bird.obsReviewed? 'CONFIRMED' : 'UNCONFIRMED'}</span>
+        <span class="mx-3 text-xs font-medium {bird.obsReviewed? 'text-green-700 dark:text-green-500/90' : 'text-yellow-700 dark:text-yellow-400/90'}">{bird.obsReviewed? 'CONFIRMED' : 'UNCONFIRMED'}</span>
     </div>
 
     <div class="col-start-2">
