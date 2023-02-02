@@ -21,5 +21,5 @@
             </label>
         </div>
     </div>
-    <button type="Submit">Submit</button>
+    <button type="Submit" class="submit-button">Submit</button>
 </form>

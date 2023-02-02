@@ -90,12 +90,12 @@
         regionGroupList = Object.keys(groupedRegionBirdData).sort()
         console.log(groupedRegionBirdData);
     }
-
 </script>
-    
-<h1>eBird Rare Bird Alert</h1>
-<div>
-    <div class="grid form-select">
+
+<h1 class="text-center text-xl font-medium pb-2">eBird Rare Bird Alert</h1>
+
+<div class="bg-slate-50 p-2">
+    <div>
         <select name="radiusRegion" id="radiusRegion" bind:value={radiusRegion}>
             <option value="radius">Radius from...</option>
             <option value="region">Region</option>
@@ -114,7 +114,7 @@
 
 <hr>
 
-<div class="grid">
+<div class="flex flex-row justify-between my-3">
     <div>
         <input type="checkbox" id="showAll" bind:checked={showAll}>
         <label for="showAll">Show all details</label>
@@ -179,20 +179,3 @@
         {/if}
     {/if}
 {/if}
-
-
-
-<style>
-    :root {
-        font-size: 14px;
-        font-family: sans-serif;
-    }
-
-    .form-select {
-        padding-bottom: 2rem;
-    }
-    
-    h1 {
-        text-align: center;
-    }
-</style>

@@ -14,43 +14,27 @@
     const obsOfSpecies = getSpeciesData(birdData);
 </script>
 
-<div>
-    <details bind:open={showAll}>
-        <summary><span>{birdName}</span></summary>
-        {#each obsOfSpecies as bird}
-            <hr>
-            <BirdObservation 
-                bird={bird}
-                sortType="bird"
-                allComments={allComments}
-            />
-        {/each}
+<details bind:open={showAll} class="my-2">
+    <summary class="cursor-pointer"><span>{birdName}</span></summary>
+    {#each obsOfSpecies as bird}
+        <BirdObservation 
+            bird={bird}
+            sortType="bird"
+            allComments={allComments}
+        />
+    {/each}
 
-        <!-- <table role="grid">
-            <tbody>
-                {#each obsOfSpecies as bird, id}
-                    <BirdResult 
-                        bird={bird}
-                        sortType="bird"
-                        
-                        allComments={allComments}
-                    />
-                {/each}
-            </tbody>
-        </table> -->
+    <!-- <table role="grid">
+        <tbody>
+            {#each obsOfSpecies as bird, id}
+                <BirdResult 
+                    bird={bird}
+                    sortType="bird"
+                    
+                    allComments={allComments}
+                />
+            {/each}
+        </tbody>
+    </table> -->
 
-    </details>
-</div>
-
-
-<style>
-    span {
-        font-size: 1.1rem;
-    }
-
-    details {
-        padding-top: 0.5rem;
-    }
-
-    
-</style>
+</details>
