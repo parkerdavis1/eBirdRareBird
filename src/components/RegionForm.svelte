@@ -1,7 +1,7 @@
 <script>
     import { enhance } from '$app/forms';
 
-    import { days } from '../store';
+    import { days, loading } from '../store';
     let region = 'US-AZ-013';
 </script>
 
@@ -20,5 +20,7 @@
         <input type="range" name="days" id="days" min="1" max="30" bind:value={$days}>
 
     </div>
-    <button type="Submit" class="submit-button">Submit</button>
+    <button type="Submit" class="submit-button" on:click={() => $loading = true}>
+        {$loading ? "Loading..." : "Submit"}
+    </button>
 </form>

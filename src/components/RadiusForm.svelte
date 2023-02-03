@@ -1,6 +1,6 @@
 <script>
     import { enhance } from '$app/forms';
-    import { days } from '../store';
+    import { days, loading } from '../store';
 
     let distance = 20;
     $: distance_mi = Math.round(distance * 0.62137119);
@@ -48,5 +48,5 @@
         <label for="distance" class="flex justify-between">Distance: {distance_mi}mi ({distance}km)</label>
         <input type="range" name="distance" id="distance" min="1" max="50" bind:value={distance}>
     </div>
-    <button type="submit" class="submit-button">Submit</button>
+    <button type="submit" class="submit-button" on:click={() => $loading = true}>Submit</button>
 </form>

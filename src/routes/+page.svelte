@@ -7,10 +7,12 @@
     import LocationName from '../components/LocationName.svelte'
     import BirdResult from "../components/BirdResult.svelte";
     import LocationField from "../components/LocationField.svelte";
-    // import { latLon } from "../store";
     import { enhance } from '$app/forms';
     import RadiusForm from "../components/RadiusForm.svelte";
     import RegionForm from "../components/RegionForm.svelte";
+
+    import { loading } from "../store";
+    import { page } from '$app/stores';
 
     let days = 7;
     let distance = 20;
@@ -83,11 +85,13 @@
     }
 
     $: if (radiusBirdData) {
+        $loading = false;
         groupedRadiusBirdData = groupBy(radiusBirdData, sortType, hideUnconfirmed);
         radiusGroupList = Object.keys(groupedRadiusBirdData).sort()
         console.log(groupedRadiusBirdData);
     }
     $: if (regionBirdData) {
+        $loading = false;
         groupedRegionBirdData = groupBy(regionBirdData, sortType, hideUnconfirmed);
         regionGroupList = Object.keys(groupedRegionBirdData).sort()
         console.log(groupedRegionBirdData);
@@ -134,47 +138,53 @@
     </div>
 </div>
 
-{#if radiusRegion === 'radius' && radiusGroupList}
-    {#if sortType === 'species'}
-        {#each radiusGroupList as bird (bird)}
-            <BirdName 
-                birdName={bird} 
-                birdData={groupedRadiusBirdData}
-                showAll={showAll}
-                allComments={allComments}
-            />
-        {/each}
-    {:else if sortType === 'location'}
-        {#each radiusGroupList as location (location)}
-            <LocationName 
-                locationName={location} 
-                birdData={groupedRadiusBirdData}
-                showAll={showAll}
-                allComments={allComments}
-            />
-        {/each}
-    {/if}
+{#if $loading}
+    <p class="animate-pulse">Loading...</p>
+{:else if $page.error}
+    <p>{$page.status}: {$page.error.message}</p>
+{:else}
+    {#if radiusRegion === 'radius' && radiusGroupList}
+        {#if sortType === 'species'}
+            {#each radiusGroupList as bird (bird)}
+                <BirdName 
+                    birdName={bird} 
+                    birdData={groupedRadiusBirdData}
+                    showAll={showAll}
+                    allComments={allComments}
+                />
+            {/each}
+        {:else if sortType === 'location'}
+            {#each radiusGroupList as location (location)}
+                <LocationName 
+                    locationName={location} 
+                    birdData={groupedRadiusBirdData}
+                    showAll={showAll}
+                    allComments={allComments}
+                />
+            {/each}
+        {/if}
 
-{:else if radiusRegion === 'region' && regionGroupList}
-    {#if sortType === 'species'}
-        {#each regionGroupList as bird (bird)}
-            <BirdName 
-                birdName={bird} 
-                birdData={groupedRegionBirdData}
-                showAll={showAll}
+    {:else if radiusRegion === 'region' && regionGroupList}
+        {#if sortType === 'species'}
+            {#each regionGroupList as bird (bird)}
+                <BirdName 
+                    birdName={bird} 
+                    birdData={groupedRegionBirdData}
+                    showAll={showAll}
 
-                allComments={allComments}
-            />
-        {/each}
-    {:else if sortType === 'location'}
-        {#each regionGroupList as location (location)}
-            <LocationName 
-                locationName={location} 
-                birdData={groupedRegionBirdData}
-                showAll={showAll}
+                    allComments={allComments}
+                />
+            {/each}
+        {:else if sortType === 'location'}
+            {#each regionGroupList as location (location)}
+                <LocationName 
+                    locationName={location} 
+                    birdData={groupedRegionBirdData}
+                    showAll={showAll}
 
-                allComments={allComments}
-            />
-        {/each}
+                    allComments={allComments}
+                />
+            {/each}
+        {/if}
     {/if}
 {/if}
