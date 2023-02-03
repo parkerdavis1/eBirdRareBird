@@ -1,6 +1,10 @@
 <script>
     import { enhance } from '$app/forms';
 
+    import dayjs from 'dayjs'
+    import customParseFormat from 'dayjs/plugin/customParseFormat'
+    dayjs.extend(customParseFormat)
+
     export let bird;
     export let allComments;
 
@@ -30,9 +34,7 @@
     const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${bird.lat},${bird.lng}`;
     const checklistLink = `https://ebird.org/checklist/${bird.subId}`
 
-    const handleDetails = () => {
-
-    }
+    const formattedDate = dayjs(bird.obsDt, "YYYY-MM-DD HH:mm").format("MMM D, YYYY HH:mm")
 </script>
 <hr>
 <div class="grid grid-cols-[auto_1fr] my-3">
@@ -56,7 +58,8 @@
         <a href="{checklistLink}">
             <p class="text-sm flex gap-1">
                 <img src="{calendar}" alt="Calendar icon" class="inline">
-                {bird.obsDt}
+                <!-- {bird.obsDt} -->
+                {formattedDate}
             </p>
         </a>
         <a href="{googleMapsLink}" class="col-span-2">

@@ -47,7 +47,7 @@
 
 <div>
     <details bind:open={showAll}>
-        <summary><span>{locationName}</span></summary>
+        <summary class="cursor-pointer my-2"><span>{locationName}</span></summary>
             {#each obsOfLocation as observation (observation.obsId)}
                 <BirdObservation 
                     bird={observation}

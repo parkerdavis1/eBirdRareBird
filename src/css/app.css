@@ -36,9 +36,12 @@
         @apply border-none
     }
 
-    /* details[open] summary {
-        @apply font-bold
-    } */
+    details {
+        @apply transition-[margin] duration-200 ease-out
+    }
+    details[open] {
+        @apply my-8
+    }
 }
 
 
