@@ -11,12 +11,12 @@
         return obj[birdName];
     }
 
-    const obsOfSpecies = getSpeciesData(birdData);
+    $: obsOfSpecies = getSpeciesData(birdData);
 </script>
 
 <details bind:open={showAll}>
     <summary class="cursor-pointer my-2"><span>{birdName}</span></summary>
-    {#each obsOfSpecies as bird}
+    {#each obsOfSpecies as bird (bird.obsId)}
         <BirdObservation 
             bird={bird}
             sortType="bird"

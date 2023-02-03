@@ -37,7 +37,7 @@
 <hr>
 <div class="grid grid-cols-[auto_1fr] my-3">
     <div class="col-start-1 pr-4">
-        <p>{bird.howMany}</p>
+        <p>{bird.howMany? bird.howMany : 'X'}</p>
     </div>
 
     <div class="col-start-2 flex items-baseline">
@@ -74,8 +74,8 @@
 
         
         <button type="submit" class="text-sm" disabled={formComment}>
-            <span>Details</span> 
             <img src="{speechBubble}" alt="speech bubble icon" class="inline">
+            <span>Details</span> 
         </button>
         {#if bird.hasRichMedia}
             <a href="{checklistLink}" target="_blank">

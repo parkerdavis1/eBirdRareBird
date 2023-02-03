@@ -19,6 +19,7 @@
     let radiusRegion = 'region';
     let region = "";
     let showAll = false;
+    let hideUnconfirmed = false;
     let sortType;
     let allComments = {}
     $: if (form) {
@@ -30,10 +31,11 @@
         // console.log(allComments);
     }
 
-    function groupBy (array, sortType) {
+    function groupBy (array, sortType, hideUnconfirmed) {
         let groupedObj = {};
         array.forEach(birdObs => {
             let groupId;
+            if (hideUnconfirmed && !birdObs.obsValid) return;
             if (sortType === 'species') {
                 groupId = birdObs.comName
             } else if (sortType === 'location') {
@@ -81,12 +83,12 @@
     }
 
     $: if (radiusBirdData) {
-        groupedRadiusBirdData = groupBy(radiusBirdData, sortType);
+        groupedRadiusBirdData = groupBy(radiusBirdData, sortType, hideUnconfirmed);
         radiusGroupList = Object.keys(groupedRadiusBirdData).sort()
         console.log(groupedRadiusBirdData);
     }
     $: if (regionBirdData) {
-        groupedRegionBirdData = groupBy(regionBirdData, sortType);
+        groupedRegionBirdData = groupBy(regionBirdData, sortType, hideUnconfirmed);
         regionGroupList = Object.keys(groupedRegionBirdData).sort()
         console.log(groupedRegionBirdData);
     }
@@ -113,10 +115,14 @@
 
 </div>
 
-<div class="flex flex-row justify-between my-3">
+<div class="flex flex-row flex-wrap justify-between my-3">
     <div>
         <input type="checkbox" id="showAll" bind:checked={showAll}>
         <label for="showAll">Show all details</label>
+    </div>
+    <div>
+        <input type="checkbox" id="hideUnconfirmed" bind:checked={hideUnconfirmed}>
+        <label for="hideUnconfirmed">Hide Unconfirmed</label>
     </div>
     <div>
         <label for="sort">Sort by:</label>
