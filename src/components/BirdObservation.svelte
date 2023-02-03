@@ -49,14 +49,17 @@
         <span class="mx-3 text-xs font-medium {bird.obsReviewed? 'text-green-700 dark:text-green-500/90' : 'text-yellow-700 dark:text-yellow-400/90'}">{bird.obsReviewed? 'CONFIRMED' : 'UNCONFIRMED'}</span>
     </div>
 
-    <div class="col-start-2">
+    <div class="
+        col-start-2 
+        md:grid md:grid-cols-4 md:items-center
+    ">
         <a href="{checklistLink}">
             <p class="text-sm flex gap-1">
                 <img src="{calendar}" alt="Calendar icon" class="inline">
                 {bird.obsDt}
             </p>
         </a>
-        <a href="{googleMapsLink}">
+        <a href="{googleMapsLink}" class="col-span-2">
             <p class="text-sm flex gap-1">
                 <img src="{mapIcon}" alt="map pointer icon" class="inline">
                 {bird.locName}

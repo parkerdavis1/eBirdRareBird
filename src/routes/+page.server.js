@@ -20,7 +20,7 @@ const parseLatLon = (latLonString) => {
 }
 
 export const actions = {
-    radius: async ({ request, fetch }) => {
+    radius: async ({ request }) => {
         const data = await request.formData();
         const latLon = data.get('location');
         // console.log('latLonData', latLonData);

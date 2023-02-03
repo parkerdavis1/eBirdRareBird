@@ -28,7 +28,12 @@
     }
 
     hr{
-        @apply border-solid border-slate-500
+        @apply border-solid border-slate-100 dark:border-slate-800
+    }
+
+    hr:last-of-type,
+    hr:first-of-type {
+        @apply border-none
     }
 
     /* details[open] summary {

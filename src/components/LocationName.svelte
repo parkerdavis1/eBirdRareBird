@@ -51,7 +51,6 @@
             {#each obsOfLocation as observation (observation.obsId)}
                 <BirdObservation 
                     bird={observation}
-                    sortType="location"
                     allComments={allComments}
                 />
             {/each}

@@ -19,7 +19,6 @@
     {#each obsOfSpecies as bird (bird.obsId)}
         <BirdObservation 
             bird={bird}
-            sortType="bird"
             allComments={allComments}
         />
     {/each}
