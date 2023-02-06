@@ -122,7 +122,7 @@
 <div class="flex flex-row flex-wrap justify-between my-3">
     <div>
         <input type="checkbox" id="showAll" bind:checked={showAll}>
-        <label for="showAll">Show all details</label>
+        <label for="showAll">Expand all</label>
     </div>
     <div>
         <input type="checkbox" id="hideUnconfirmed" bind:checked={hideUnconfirmed}>
@@ -143,6 +143,7 @@
 {:else if $page.error}
     <p>{$page.status}: {$page.error.message}</p>
 {:else}
+
     {#if radiusRegion === 'radius' && radiusGroupList}
         {#if sortType === 'species'}
             {#each radiusGroupList as bird (bird)}
@@ -187,4 +188,5 @@
             {/each}
         {/if}
     {/if}
+    
 {/if}

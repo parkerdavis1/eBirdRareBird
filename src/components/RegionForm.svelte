@@ -11,7 +11,21 @@
         <div>
             <label for="region">Region Code:</label>
             <select name="region" id="region" bind:value={region}>
-                <option value="US-AZ-013">Maricopa, AZ</option>
+                <option value="US-AZ-001">Apache</option>
+                <option value="US-AZ-003">Cochise</option>
+                <option value="US-AZ-005">Coconino</option>
+                <option value="US-AZ-007">Gila</option>
+                <option value="US-AZ-009">Graham</option>
+                <option value="US-AZ-011">Greenlee</option>
+                <option value="US-AZ-012">La Paz</option>
+                <option value="US-AZ-013">Maricopa</option>
+                <option value="US-AZ-015">Mohave</option>
+                <option value="US-AZ-017">Navajo</option>
+                <option value="US-AZ-019">Pima</option>
+                <option value="US-AZ-021">Pinal</option>
+                <option value="US-AZ-023">Santa Cruz</option>
+                <option value="US-AZ-025">Yavapai</option>
+                <option value="US-AZ-027">Yuma</option>
                 <option value="US-AZ">Arizona</option>
             </select>
         </div>

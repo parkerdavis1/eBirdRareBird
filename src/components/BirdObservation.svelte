@@ -38,12 +38,12 @@
 </script>
 <hr>
 <div class="grid grid-cols-[auto_1fr] my-3">
-    <div class="col-start-1 pr-4">
-        <p>{bird.howMany? bird.howMany : 'X'}</p>
+    <div class="col-start-1 pr-4 text-sm">
+        <p>{bird.howMany? bird.howMany : 'x'}</p>
     </div>
 
     <div class="col-start-2 flex items-baseline">
-        <div>
+        <div class="flex flex-wrap items-baseline">
             <span class="mx-1 text-sm whitespace-nowrap">{bird.comName}</span>
             <span class="mx-1 text-xs italic text-gray-500 dark:text-gray-400 whitespace-nowrap">{bird.sciName}</span>
         </div>
@@ -63,9 +63,9 @@
             </p>
         </a>
         <a href="{googleMapsLink}" class="col-span-2">
-            <p class="text-sm flex gap-1">
-                <img src="{mapIcon}" alt="map pointer icon" class="inline">
-                {bird.locName}
+            <p class="text-sm grid gap-1 grid-cols-[auto,1fr]">
+                <img src="{mapIcon}" alt="map pointer icon" class="inline col-start-1">
+                <span class="col-start-2">{bird.locName}</span>
             </p>
         </a>
         <p class="text-sm flex gap-1">
