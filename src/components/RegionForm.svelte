@@ -1,8 +1,7 @@
 <script>
     import { enhance } from '$app/forms';
 
-    import { days, loading } from '../store';
-    let region = 'US-AZ-013';
+    import { region, loading } from '../store';
 </script>
 
 
@@ -10,7 +9,7 @@
     <div class="grid">
         <div>
             <label for="region">Region Code:</label>
-            <select name="region" id="region" bind:value={region}>
+            <select name="region" id="region" bind:value={$region.region}>
                 <option value="US-AZ-001">Apache</option>
                 <option value="US-AZ-003">Cochise</option>
                 <option value="US-AZ-005">Coconino</option>
@@ -30,8 +29,8 @@
             </select>
         </div>
 
-        <label for="days">Time period (days ago): {$days}</label>
-        <input type="range" name="days" id="days" min="1" max="30" bind:value={$days}>
+        <label for="days">Time period (days ago): {$region.days}</label>
+        <input type="range" name="days" id="days" min="1" max="30" bind:value={$region.days}>
 
     </div>
     <button type="Submit" class="submit-button" on:click={() => $loading = true}>

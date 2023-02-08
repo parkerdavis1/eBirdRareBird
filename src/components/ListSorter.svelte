@@ -1,32 +1,61 @@
 <script>
-    export let sortType
-    export let radiusGroupList
-    export let groupedRadiusBirdData
-    export let regionGroupList
-    export let groupedRegionBirdData
+    export let birdData
     export let showAll
-    export let allComments
 
-    import BirdName from "./BirdName.svelte";
-    import LocationName from "./LocationName.svelte";
+    import GroupName from "./GroupName.svelte";
+    import BirdObservation from "./BirdObservation.svelte";
+
+    import { filters } from '../store'
+
+    let groupedBirdData
+    let groupList
+
+    $: if (birdData) {
+        groupedBirdData = groupBy(birdData, $filters.sortType, $filters.hideUnconfirmed);
+        groupList = Object.keys(groupedBirdData).sort()
+        // console.log('groupList', groupList)
+        // console.log('groupedBirdData', groupedBirdData);
+    }
+
+    function groupBy (array, sortType, hideUnconfirmed) {
+        let groupedObj = {};
+        array.forEach(birdObs => {
+            let groupId;
+            if (hideUnconfirmed && !birdObs.obsValid) return;
+            if (sortType === 'species') {
+                groupId = birdObs.comName
+            } else if (sortType === 'location') {
+                groupId = birdObs.locName
+            } 
+            let existingObsIds = [];
+
+            if (!Object.keys(groupedObj).includes(groupId)) {
+                groupedObj[groupId] = [birdObs];
+            } else {
+                existingObsIds = groupedObj[groupId].map(obj => obj.obsId);
+                if (!existingObsIds.includes(birdObs.obsId)) {
+                    groupedObj[groupId].push(birdObs);
+                }
+            }
+        })
+        return groupedObj;
+    }
 </script>
 
-{#if sortType === 'species'}
-    {#each radiusGroupList as bird (bird)}
-        <BirdName 
-            birdName={bird} 
-            birdData={groupedRadiusBirdData}
-            showAll={showAll}
-            allComments={allComments}
-        />
-    {/each}
-{:else if sortType === 'location'}
-    {#each radiusGroupList as location (location)}
-        <LocationName 
-            locationName={location} 
-            birdData={groupedRadiusBirdData}
-            showAll={showAll}
-            allComments={allComments}
-        />
-    {/each}
+{#if birdData}
+    {#if $filters.sortType === 'date'}
+        {#each birdData as bird}
+            <BirdObservation 
+                bird={bird}
+            />
+        {/each}
+    {:else}
+        {#each groupList as groupName}
+            <GroupName 
+                groupedBirdData={groupedBirdData}
+                groupName={groupName}
+                showAll={showAll}
+            />
+        {/each}
+    {/if}
 {/if}

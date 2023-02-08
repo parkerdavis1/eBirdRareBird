@@ -1,12 +1,13 @@
 <script>
     import { enhance } from '$app/forms';
 
+    import { allComments } from '../store'
+
     import dayjs from 'dayjs'
     import customParseFormat from 'dayjs/plugin/customParseFormat'
     dayjs.extend(customParseFormat)
 
     export let bird;
-    export let allComments;
 
     import mapIcon from '../icons/map-marker.svg';
     import user from '../icons/person.svg';
@@ -14,22 +15,7 @@
     import speechBubble from '../icons/speech-bubble-ltr.svg';
     import camera from '../icons/photo-camera-rounded.svg';
 
-    // let bird = {
-    //     comName: "Cackling Goose",
-    //     sciName: "Branta hutchinsii",
-    //     obsReviewed: true,
-    //     locName: "Scottsdale Community College",
-    //     obsDt: "2023-01-29 07:00",
-    //     hasRichMedia: true,
-    //     userDisplayName: "Parker Davis",
-    //     lat: "33.33333",
-    //     lng: "-112.124424",
-    //     subId: "S192851985"
-    // }
-
-    // let formComment = "Really saw this bird";
-
-    $: formComment = allComments[bird.obsId]
+    $: formComment = $allComments[bird.obsId]
 
     const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${bird.lat},${bird.lng}`;
     const checklistLink = `https://ebird.org/checklist/${bird.subId}`
@@ -96,66 +82,4 @@
         {/if}
     </form>
 
-    <!-- <details class="col-start-2">
-        <summary>
-            Details
-                <img src="{speechBubble}" alt="Speech Bubble icon" class="inline">
-            {#if bird.hasRichMedia}
-                <img src="{camera}" alt="Camera icon" class="inline">
-            {/if}
-        </summary>
-        <p>{formComment}</p>
-    </details> -->
-
 </div>
-
-<!-- 
-<style>
-    .grid-container {
-        display: grid;
-        grid-template-columns: auto [obs] 1fr auto [obs-end];
-        width: 100%;
-        align-items: baseline;
-    }
-
-    .Observation-numberObserved {
-        grid-column: 1/2;
-        min-width: 1.2em;
-    }
-
-    .obs {
-        grid-column: obs / obs-end;
-    }
-
-    .Heading-confirmed {
-        text-align: right;
-    }
-
-    .Heading-comName {
-        white-space: nowrap;
-    }
-
-    .Heading-sciName {
-        font-size: .75em;
-        font-style: italic;
-        white-space: nowrap;
-    }
-
-    .Observation-meta {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    img {
-        align-self: center;
-    }
-
-    @media screen and (max-width: 800px) {
-        .Observation-meta {
-            flex-flow: column wrap;
-            align-items: start;
-        }
-    }
-</style> -->
