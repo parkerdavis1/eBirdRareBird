@@ -7,14 +7,28 @@
 
     import { filters } from '../store'
 
+    let filteredData
     let groupedBirdData
     let groupList
 
     $: if (birdData) {
+        filteredData = filterDuplicates(birdData);
         groupedBirdData = groupBy(birdData, $filters.sortType, $filters.hideUnconfirmed);
         groupList = Object.keys(groupedBirdData).sort()
         // console.log('groupList', groupList)
         // console.log('groupedBirdData', groupedBirdData);
+    }
+
+    function filterDuplicates(array) {
+        let obsIds = [];
+        let obsArr = [];
+        array.forEach(birdObs => {
+            if (!obsIds.includes(birdObs.obsId)) {
+                obsIds.push(birdObs.obsId);
+                obsArr.push(birdObs);
+            }
+        });
+        return obsArr;
     }
 
     function groupBy (array, sortType, hideUnconfirmed) {
@@ -44,13 +58,13 @@
 
 {#if birdData}
     {#if $filters.sortType === 'date'}
-        {#each birdData as bird}
+        {#each filteredData as bird (bird.obsId)}
             <BirdObservation 
                 bird={bird}
             />
         {/each}
     {:else}
-        {#each groupList as groupName}
+        {#each groupList as groupName (groupName)}
             <GroupName 
                 groupedBirdData={groupedBirdData}
                 groupName={groupName}
