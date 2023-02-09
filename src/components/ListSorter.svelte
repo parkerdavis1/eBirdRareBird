@@ -7,6 +7,8 @@
 
     import { filters } from '../store'
 
+    import taxonomy from '../taxonomy.json'
+
     let filteredData
     let groupedBirdData
     let groupList
@@ -14,9 +16,17 @@
     $: if (birdData) {
         filteredData = filterDuplicates(birdData);
         groupedBirdData = groupBy(birdData, $filters.sortType, $filters.hideUnconfirmed);
-        groupList = Object.keys(groupedBirdData).sort()
+        if ($filters.sortType !== 'taxonomic') {
+            groupList = Object.keys(groupedBirdData).sort()
+        } else {
+            groupList = Object.keys(groupedBirdData).sort(taxonomySort)
+        }
         // console.log('groupList', groupList)
         // console.log('groupedBirdData', groupedBirdData);
+    }
+
+    function taxonomySort(a,b) {
+        return taxonomy[a] - taxonomy[b];
     }
 
     function filterDuplicates(array) {
@@ -36,7 +46,7 @@
         array.forEach(birdObs => {
             let groupId;
             if (hideUnconfirmed && !birdObs.obsValid) return;
-            if (sortType === 'species') {
+            if (sortType === 'alpha' || sortType === 'taxonomic') {
                 groupId = birdObs.comName
             } else if (sortType === 'location') {
                 groupId = birdObs.locName

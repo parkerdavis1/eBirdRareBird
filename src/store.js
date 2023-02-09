@@ -15,7 +15,7 @@ export const region = writable({
 
 export const filters = writable({
     hideUnconfirmed: false,
-    sortType: 'species'
+    sortType: 'taxonomic'
 })
 
 export const loading = writable(false);

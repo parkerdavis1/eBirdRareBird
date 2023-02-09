@@ -26,7 +26,8 @@
     <div>
         <label for="sort">Sort by:</label>
         <select name="sort" id="sort" bind:value={$filters.sortType}>
-            <option value="species">Species</option>
+            <option value="taxonomic">Species (taxonomic)</option>
+            <option value="alpha">Species (alphabetic)</option>
             <option value="location">Location</option>
             <option value="date">Date</option>
         </select>

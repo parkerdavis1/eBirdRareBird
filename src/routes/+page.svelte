@@ -14,14 +14,14 @@
 
     $: if (form?.radius) {
         birdData.radius = form.radius;
-        console.log('radius bird data success!')
-        console.log('radius bird data', birdData.radius)
+        // console.log('radius bird data success!')
+        // console.log('radius bird data', birdData.radius)
     }
 
     $: if (form?.region) {
         birdData.region = form.region;
-        console.log('region bird data success!')
-        console.log('region bird data', birdData.region)
+        // console.log('region bird data success!')
+        // console.log('region bird data', birdData.region)
     }
 
     $: if (form) {

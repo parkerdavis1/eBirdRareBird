@@ -34,7 +34,7 @@
             <label for="location" hidden>GPS coordinates</label>
             <input type="text" id="location" name="location" bind:value={$radius.latLon} placeholder="GPS coordinates" required>
             
-            <button class="p-1 rounded 
+            <button class="my-1 p-1 rounded 
                             bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600"
                     on:click|preventDefault={handleLocate}>Locate</button>
 
