@@ -86,7 +86,7 @@
             {#if !formComment}
                 <p class="animate-pulse text-sm">Loading...</p>
             {:else}
-                <div class="col-start-2" transition:fade>
+                <div class="col-start-2" in:fade>
                     <span class="text-sm">{formComment}</span>
                 </div>
             {/if}
