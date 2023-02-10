@@ -35,13 +35,6 @@
     hr:first-of-type {
         @apply border-none
     }
-
-    details {
-        @apply transition-[margin] duration-200 ease-out
-    }
-    details[open] {
-        @apply my-8
-    }
 }
 
 

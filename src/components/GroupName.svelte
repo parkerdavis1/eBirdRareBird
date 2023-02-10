@@ -14,7 +14,7 @@
 
 </script>
 
-<details bind:open={showAll}>
+<details bind:open={showAll} class="transition-[margin] duration-200 ease-out open:mb-8">
     <summary class="cursor-pointer my-2"><span>{groupName}</span></summary>
     {#each obsOfSpecies as bird (bird.obsId)}
         <BirdObservation 
