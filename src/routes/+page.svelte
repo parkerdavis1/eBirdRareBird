@@ -33,14 +33,15 @@
         // console.log(allComments);
     }
 </script>
-    {#if $isRadiusView}
-        <RadiusForm />
-        <Results 
-            birdData={birdData.radius}
-        />
-    {:else}
-        <RegionForm />
-        <Results 
-            birdData={birdData.region}
-        />
-    {/if}
+
+{#if $isRadiusView}
+    <RadiusForm />
+    <Results 
+        birdData={birdData.radius}
+    />
+{:else}
+    <RegionForm />
+    <Results 
+        birdData={birdData.region}
+    />
+{/if}

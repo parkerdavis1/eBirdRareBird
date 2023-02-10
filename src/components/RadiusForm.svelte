@@ -1,5 +1,5 @@
 <script>
-    import { enhance } from '$app/forms';
+    import { enhance, applyAction } from '$app/forms';
     import { loading, radius } from '../store';
 
     $: distance_mi = Math.round($radius.distance * 0.62137119);
@@ -11,7 +11,7 @@
             maximumAge: 1800000
         };
         const error = (error) => {
-            locateButtonText = 'Error!';
+            // locateButtonText = 'Error!';
             console.warn(`ERROR(${error.code}): ${error.message}`);
         }
         const success = (position) => {
@@ -26,9 +26,24 @@
         }
         navigator.geolocation.getCurrentPosition(success, error, options);
     }
+    
+    const latLonRegex = /\s*-?\d+\.\d+,\s*-?\d+\.\d+\s*/;
+    $: latLonValid = $radius.latLon?.match(latLonRegex)
+
 </script>
 
-<form method="POST" action="?/radius" class="container" use:enhance>
+<form method="POST" action="?/radius" class="container"  use:enhance=
+    {({ form, data, action }) => {
+    // before form is submitted
+    console.log('form: ', form)
+    console.log('data: ', data)
+    console.log('action: ', action)
+
+    return async ({ result, update }) => {
+        // after form is submitted
+        console.log('result: ', result)
+        await applyAction(result)
+    }}}>
     <div class="grid">
         <div>
             <label for="location" hidden>GPS coordinates</label>
@@ -46,5 +61,5 @@
         <label for="distance" class="flex justify-between">Distance: {distance_mi}mi ({$radius.distance}km)</label>
         <input type="range" name="distance" id="distance" min="1" max="50" bind:value={$radius.distance}>
     </div>
-    <button type="submit" class="submit-button" on:click={() => $loading = true}>Submit</button>
+    <button type="submit" class="submit-button" on:click={() => $loading = true} disabled={!latLonValid}>Submit</button>
 </form>

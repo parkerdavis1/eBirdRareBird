@@ -20,7 +20,11 @@
     }
 
     .submit-button {
-        @apply px-2 py-1 my-2 bg-sky-600 hover:bg-sky-700 rounded text-white dark:bg-sky-600/80
+        @apply px-2 py-1 my-2 rounded text-white 
+        bg-sky-600 
+        hover:bg-sky-700 
+        dark:bg-sky-600/80
+        disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed
     }
 
     body {
