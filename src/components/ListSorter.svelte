@@ -33,6 +33,7 @@
         let obsIds = [];
         let obsArr = [];
         array.forEach(birdObs => {
+            if ($filters.hideUnconfirmed && !birdObs.obsValid) return;
             if (!obsIds.includes(birdObs.obsId)) {
                 obsIds.push(birdObs.obsId);
                 obsArr.push(birdObs);

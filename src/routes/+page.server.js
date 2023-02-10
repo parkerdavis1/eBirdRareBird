@@ -52,6 +52,8 @@ export const actions = {
         const queries = `?detail=full&back=${days}`
         try {
             const res = await fetch(`https://api.ebird.org/v2/data/obs/${region}/recent/notable${queries}`, requestOptions);
+            // throw errors
+            // const res = await fetch(`https://api.ebird.org/v2/data/obs/${region}/recent/notable${queries}`);
             const resJson = await res.json();
             return {
                 region: resJson
@@ -68,6 +70,7 @@ export const actions = {
         const obsId = data.get('obsId');
         try {
             const res = await fetch(`https://api.ebird.org/v2/product/checklist/view/${checklistId}`, requestOptions)
+
             const resJson = await res.json()
             const obsArr = resJson.obs;
     

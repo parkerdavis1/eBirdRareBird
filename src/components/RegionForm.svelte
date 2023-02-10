@@ -1,11 +1,23 @@
 <script>
-    import { enhance } from '$app/forms';
+    import { enhance, applyAction } from '$app/forms';
 
     import { region, loading } from '../store';
 </script>
 
 
-<form method="POST" action="?/region" class="container" use:enhance>
+<form method="POST" action="?/region" class="container" use:enhance=
+    {({ form, data, action }) => {
+    // before form is submitted
+    console.log('form: ', form)
+    console.log('data: ', data)
+    console.log('action: ', action)
+
+    return async ({ result, update }) => {
+        // after form is submitted
+        console.log('result: ', result)
+        await applyAction(result)
+    }
+}}>
     <div class="grid">
         <div>
             <label for="region">Region Code:</label>

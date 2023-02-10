@@ -38,6 +38,8 @@
     <p class="animate-pulse">Loading...</p>
 {:else if $page.error}
     <p>{$page.status}: {$page.error.message}</p>
+{:else if birdData?.length < 1}
+    <p>No results</p>
 {:else}
     <ListSorter 
         birdData={birdData}

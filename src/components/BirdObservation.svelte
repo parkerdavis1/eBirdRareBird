@@ -9,7 +9,6 @@
     dayjs.extend(customParseFormat)
 
     export let bird;
-    console.log(bird)
 
     import mapIcon from '../icons/map-marker.svg';
     import user from '../icons/person.svg';
@@ -70,7 +69,7 @@
         </p>
     </div>
 
-    <form method="POST" action="?/getComments" use:enhance on:submit|preventDefault class="col-start-2" bind:this={commentForm}>
+    <form method="POST" action="?/getComments" on:submit|preventDefault class="col-start-2" bind:this={commentForm} use:enhance>
         <input type="hidden" name="checklistId" value={bird.subId}>
         <input type="hidden" name="obsId" value={bird.obsId}>
 
