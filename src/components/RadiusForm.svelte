@@ -43,6 +43,7 @@
         // after form is submitted
         console.log('result: ', result)
         await applyAction(result)
+        document.getElementById('results-container').scrollIntoView({ behavior: "smooth"})
     }}}>
     <div class="grid">
         <div>

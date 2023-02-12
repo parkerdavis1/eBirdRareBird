@@ -4,14 +4,13 @@
 
     import GroupName from "./GroupName.svelte";
     import BirdObservation from "./BirdObservation.svelte";
-
     import { filters } from '../store'
-
     import taxonomy from '../taxonomy.json'
 
     let filteredData
     let groupedBirdData
     let groupList
+
 
     $: if (birdData) {
         filteredData = filterDuplicates(birdData);

@@ -1,7 +1,16 @@
 <script>
     import { enhance, applyAction } from '$app/forms';
+    import { browser } from '$app/environment';
+    
 
     import { region, loading } from '../store';
+
+    function handleSubmit() {
+        $loading = true;
+        // setTimeout(() => {
+        //     document.getElementById('results-container').scrollIntoView()
+        // }, 1000);
+    }
 </script>
 
 
@@ -16,6 +25,9 @@
         // after form is submitted
         console.log('result: ', result)
         await applyAction(result)
+        document.getElementById('results-container').scrollIntoView({ behavior: "smooth"})
+
+
     }
 }}>
     <div class="grid">
@@ -45,7 +57,8 @@
         <input type="range" name="days" id="days" min="1" max="30" bind:value={$region.days}>
 
     </div>
-    <button type="Submit" class="submit-button" on:click={() => $loading = true}>
+    <button type="Submit" class="submit-button" on:click={handleSubmit}>
         {$loading ? "Loading..." : "Submit"}
     </button>
+
 </form>
