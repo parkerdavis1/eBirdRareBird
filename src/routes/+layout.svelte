@@ -17,8 +17,8 @@
         <h1 class="text-center text-2xl font-medium pb-2">Rare Bird Alert</h1>
 
         <div class="flex justify-around flex-row items-center 
-        rounded-lg 
-        h-10 p-1 mb-4
+        rounded-t-lg 
+        h-10 p-1 
         dark:bg-slate-800 bg-slate-100">
             <button 
                 class:active={!$isRadiusView} 

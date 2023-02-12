@@ -35,13 +35,23 @@
 </script>
 
 {#if $isRadiusView}
-    <RadiusForm />
+    <div class="form-container">
+        <RadiusForm />
+    </div>
     <Results 
         birdData={birdData.radius}
     />
 {:else}
-    <RegionForm />
+    <div class="form-container">
+        <RegionForm />
+    </div>
     <Results 
         birdData={birdData.region}
     />
 {/if}
+
+<style lang="postcss">
+    .form-container {
+        @apply bg-slate-100 dark:bg-slate-800 p-4 ;
+    }
+</style>
