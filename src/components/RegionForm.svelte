@@ -37,7 +37,7 @@
                 <option value="US-AZ-023">Santa Cruz</option>
                 <option value="US-AZ-025">Yavapai</option>
                 <option value="US-AZ-027">Yuma</option>
-                <option value="US-AZ">Arizona</option>
+                <!-- <option value="US-AZ">Arizona</option> -->
             </select>
         </div>
 

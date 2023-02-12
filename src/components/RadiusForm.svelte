@@ -58,7 +58,7 @@
         <label for="days">Time period (days ago): {$radius.days}</label>
         <input type="range" name="days" id="days" min="1" max="30" bind:value={$radius.days}>
 
-        <label for="distance" class="flex justify-between">Distance: {distance_mi}mi ({$radius.distance}km)</label>
+        <label for="distance" class="flex justify-between">Distance: {distance_mi}mi</label>
         <input type="range" name="distance" id="distance" min="1" max="50" bind:value={$radius.distance}>
     </div>
     <button type="submit" class="submit-button" on:click={() => $loading = true} disabled={!latLonValid}>Submit</button>

@@ -51,19 +51,19 @@
         md:grid md:grid-cols-4 md:items-center
     ">
         <a href="{checklistLink}" target="_blank" rel="noreferrer">
-            <p class="text-sm flex gap-1">
+            <p class="text-sm flex gap-1 my-1">
                 <img src="{calendar}" alt="Calendar icon" class="inline">
                 <!-- {bird.obsDt} -->
                 {formattedDate}
             </p>
         </a>
         <a href="{googleMapsLink}" class="col-span-2" target="_blank" rel="noreferrer">
-            <p class="text-sm grid gap-1 grid-cols-[auto,1fr]">
+            <p class="text-sm grid gap-1 grid-cols-[auto,1fr] my-1">
                 <img src="{mapIcon}" alt="map pointer icon" class="inline col-start-1 relative top-[.15rem]">
                 <span class="col-start-2">{bird.locName}</span>
             </p>
         </a>
-        <p class="text-sm flex gap-1">
+        <p class="text-sm flex gap-1 my-1">
             <img src="{user}" alt="person icon" class="inline">
             <span>{bird.userDisplayName}</span>
         </p>

@@ -14,8 +14,8 @@
     let showAll = false;
 </script>
 
-<div class="flex flex-row flex-wrap justify-between my-3">
-    <div>
+<div class="flex flex-row flex-wrap justify-between my-3 items-baseline">
+    <div class:hidden={$filters.sortType === 'date'}>
         <input type="checkbox" id="showAll" bind:checked={showAll}>
         <label for="showAll">Expand all</label>
     </div>

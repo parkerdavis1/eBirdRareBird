@@ -8,7 +8,11 @@
     }
 
     select {
-        @apply px-2 py-1 rounded m-1 dark:bg-slate-700 dark:text-slate-100
+        @apply px-2 py-1 my-4 rounded m-1 dark:bg-slate-700 dark:text-slate-100
+    }
+
+    input {
+        @apply my-3
     }
 
     input[type="text"] {

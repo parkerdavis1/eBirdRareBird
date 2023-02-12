@@ -75,12 +75,13 @@ export const actions = {
             const obsArr = resJson.obs;
     
             const specificObs = obsArr.find(obs => obs.obsId === obsId);
-    
             let comments = specificObs.comments;
-            // console.log(comments);
-            const returnObject = {};
-            returnObject[obsId] = comments;
-            // console.log('RETURN OBJECT!!!!!', returnObject)
+            let returnObject = {};
+            if (!comments) {
+                returnObject[obsId] = 'No details';
+            } else {
+                returnObject[obsId] = comments;
+            }
 
             return returnObject;
 
