@@ -12,7 +12,7 @@ isRadiusView.subscribe(value => {
     }
 })
 
-let radiusDefault = {latLon: undefined, distance: 15, days: 3}
+let radiusDefault = {latLon: undefined, distance: 20, days: 7}
 export const radius = writable(browser ? JSON.parse(localStorage.getItem('radiusFormInputs')) || radiusDefault : radiusDefault);
 radius.subscribe(value => {
     if (browser) {
