@@ -1,4 +1,4 @@
-import { writable, derived } from "svelte/store";
+import { writable} from "svelte/store";
 import { browser } from '$app/environment';
 
 export const loading = writable(false);
@@ -12,7 +12,7 @@ isRadiusView.subscribe(value => {
     }
 })
 
-export const latLon = writable(browser ? JSON.parse(sessionStorage.getItem('latLon')) || undefined : undefined);
+export const latLon = writable(browser ? JSON.parse(sessionStorage.getItem("latLon")) || '' : '');
 latLon.subscribe( value => {
     if (browser) {
         sessionStorage.latLon = JSON.stringify(value);
