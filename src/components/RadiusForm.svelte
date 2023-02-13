@@ -1,6 +1,6 @@
 <script>
     import { enhance, applyAction } from '$app/forms';
-    import { loading, radius } from '../store';
+    import { loading, radius, latLon } from '../store';
 
     $: distance_mi = Math.round($radius.distance * 0.62137119);
 
@@ -21,18 +21,18 @@
             // console.log(`Longitude: ${coord.longitude}`);
             // console.log(`More or less ${coord.accuracy} meters.`);
             console.log(position);
-            $radius.latLon = '';
-            $radius.latLon = `${position.coords.latitude},${position.coords.longitude}`
+            $latLon = '';
+            $latLon = `${position.coords.latitude},${position.coords.longitude}`
         }
         navigator.geolocation.getCurrentPosition(success, error, options);
     }
     
     const latLonRegex = /\s*-?\d+\.\d+,\s*-?\d+\.\d+\s*/;
-    $: latLonValid = $radius.latLon?.match(latLonRegex)
+    $: latLonValid = $latLon?.match(latLonRegex)
 
 </script>
 
-<form method="POST" action="?/radius" class="container"  use:enhance=
+<form method="POST" action="?/radius" class="container p-4"  use:enhance=
     {({ form, data, action }) => {
     // before form is submitted
     console.log('form: ', form)
@@ -48,7 +48,7 @@
     <div class="grid">
         <div>
             <label for="location" hidden>GPS coordinates</label>
-            <input type="text" id="location" name="location" bind:value={$radius.latLon} placeholder="GPS coordinates" required>
+            <input type="text" id="location" name="location" bind:value={$latLon} placeholder="GPS coordinates" required>
             
             <button class="my-1 p-1 rounded 
                             bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600"

@@ -18,7 +18,7 @@
 
         <div class="flex justify-around flex-row items-center 
         rounded-t-lg 
-        h-10 p-1 
+        h-10 p-1
         dark:bg-slate-800 bg-slate-100">
             <button 
                 class:active={!$isRadiusView} 

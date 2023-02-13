@@ -52,6 +52,6 @@
 
 <style lang="postcss">
     .form-container {
-        @apply bg-slate-100 dark:bg-slate-800 p-4 rounded-b-lg;
+        @apply bg-slate-100 dark:bg-slate-800 rounded-b-lg p-4;
     }
 </style>

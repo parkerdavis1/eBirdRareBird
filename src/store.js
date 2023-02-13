@@ -12,6 +12,13 @@ isRadiusView.subscribe(value => {
     }
 })
 
+export const latLon = writable(browser ? JSON.parse(sessionStorage.getItem('latLon')) || undefined : undefined);
+latLon.subscribe( value => {
+    if (browser) {
+        sessionStorage.latLon = JSON.stringify(value);
+    }
+})
+
 let radiusDefault = {latLon: undefined, distance: 20, days: 7}
 export const radius = writable(browser ? JSON.parse(localStorage.getItem('radiusFormInputs')) || radiusDefault : radiusDefault);
 radius.subscribe(value => {
