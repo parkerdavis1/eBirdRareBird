@@ -30,7 +30,7 @@
                 $allComments[key] = value;
             }
         }
-        // console.log(allComments);
+        // console.log($allComments);
     }
 </script>
 

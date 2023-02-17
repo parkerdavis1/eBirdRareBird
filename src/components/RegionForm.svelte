@@ -17,17 +17,15 @@
 <form method="POST" action="?/region" class="container" use:enhance=
     {({ form, data, action }) => {
     // before form is submitted
-    console.log('form: ', form)
-    console.log('data: ', data)
-    console.log('action: ', action)
+    // console.log('form: ', form)
+    // console.log('data: ', data)
+    // console.log('action: ', action)
 
     return async ({ result, update }) => {
         // after form is submitted
-        console.log('result: ', result)
+        // console.log('result: ', result)
         await applyAction(result)
         document.getElementById('results-container').scrollIntoView({ behavior: "smooth"})
-
-
     }
 }}>
     <div class="grid">

@@ -2,6 +2,9 @@
     import { enhance } from '$app/forms';
     import { fade } from 'svelte/transition'
 
+    import makeFetchCookie from 'fetch-cookie';
+    const fetchCookie = makeFetchCookie(fetch);
+
     import { allComments } from '../store'
 
     import dayjs from 'dayjs'
@@ -15,8 +18,9 @@
     import calendar from '../icons/calendar-month-rounded.svg';
     import speechBubble from '../icons/speech-bubble-ltr.svg';
     import camera from '../icons/photo-camera-rounded.svg';
+    import MediaPreview from './MediaPreview.svelte';
 
-    $: formComment = $allComments[bird.obsId];
+    $: obsDetails = $allComments[bird.obsId];
 
     const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${bird.lat},${bird.lng}`;
     const checklistLink = `https://ebird.org/checklist/${bird.subId}`
@@ -25,7 +29,9 @@
     const formattedDate = dayjs(bird.obsDt, "YYYY-MM-DD HH:mm").format("MMM D, YYYY HH:mm");
 
     let commentForm;
-    function getComment(event) {
+    let media;
+
+    async function getComment(event) {
         event.preventDefault()
         commentForm.requestSubmit()
     }
@@ -72,6 +78,7 @@
     <form method="POST" action="?/getComments" on:submit|preventDefault class="col-start-2" bind:this={commentForm} use:enhance>
         <input type="hidden" name="checklistId" value={bird.subId}>
         <input type="hidden" name="obsId" value={bird.obsId}>
+        <input type="hidden" name="hasRichMedia" value={bird.hasRichMedia}>
 
         <details on:toggle|once={getComment}>
             <summary class="cursor-pointer">
@@ -83,18 +90,20 @@
                     </a>
                 {/if}
             </summary>
-            {#if !formComment}
+            {#if !obsDetails}
                 <p class="animate-pulse text-sm">Loading...</p>
             {:else}
                 <div class="col-start-2" in:fade>
-                    <span class="text-sm" class:italic={formComment === 'No details'}>{formComment}</span>
+                    <span class="text-sm" class:italic={obsDetails === 'No details'}>{obsDetails.comments}</span>
+                    {#if obsDetails.media}
+                        <div class="flex gap-2 flex-wrap">
+                            {#each obsDetails.media as media}
+                                <MediaPreview media={media} />
+                            {/each}
+                        </div>
+                    {/if}
                 </div>
             {/if}
-            <!-- {#if formComment}
-                <div class="col-start-2">
-                    <span class="text-sm">{formComment}</span>
-                </div>
-            {/if} -->
         </details>
 
     </form>

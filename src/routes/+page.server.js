@@ -1,5 +1,8 @@
 import { EBIRD_API } from '$env/static/private';
 
+import makeFetchCookie from 'fetch-cookie';
+const fetchCookie = makeFetchCookie(fetch);
+
 var myHeaders = new Headers();
 myHeaders.append("X-eBirdApiToken", EBIRD_API);
 
@@ -8,6 +11,7 @@ var requestOptions = {
     headers: myHeaders,
     redirect: 'follow'
 };
+
 
 // latLon Parser 
 const parseLatLon = (latLonString) => {
@@ -68,26 +72,71 @@ export const actions = {
         const data = await request.formData();
         const checklistId = data.get('checklistId');
         const obsId = data.get('obsId');
+        const hasRichMedia = data.get('hasRichMedia');
+        console.log('HAS RICH MEDIA?', hasRichMedia);
+
+        let returnObject = {};
+        returnObject[obsId] = {};
+
         try {
-            const res = await fetch(`https://api.ebird.org/v2/product/checklist/view/${checklistId}`, requestOptions)
-
-            const resJson = await res.json()
-            const obsArr = resJson.obs;
-    
-            const specificObs = obsArr.find(obs => obs.obsId === obsId);
-            let comments = specificObs.comments;
-            let returnObject = {};
-            if (!comments) {
-                returnObject[obsId] = 'No details';
+            if (hasRichMedia === 'true') {
+                console.log('doing the has !rich media block')
+                let [comments, mediaArr] = await Promise.allSettled([
+                    getComments({ checklistId, obsId }),
+                    getMedia(obsId)
+                ])
+                returnObject[obsId].comments = comments.value;
+                returnObject[obsId].media = mediaArr.value;
             } else {
-                returnObject[obsId] = comments;
+                console.log('else block')
+                let comments = await getComments({ checklistId, obsId });
+                console.log('comments: ', comments)
+                returnObject[obsId].comments = comments;
             }
-
+            console.log('returnObject: ', returnObject)
             return returnObject;
 
         } catch (err){
             console.log(err);
         }
-
     }
+}
+
+
+async function getComments({ checklistId, obsId }) {
+    const res = await fetch(`https://api.ebird.org/v2/product/checklist/view/${checklistId}`, requestOptions)
+    const resJson = await res.json()
+    const specificObs = resJson.obs.find(obs => obs.obsId === obsId);
+
+    let comments = specificObs.comments;
+    // console.log('returnObject: ', returnObject)
+    if (!comments) {
+        // returnObject[obsId].comments = 'No details';
+        return "No Details"
+    }
+    return comments
+}
+
+
+async function getMedia(obsId) {
+    const res = await fetchCookie(`https://ebird.org/obsservice/media?obsId=${obsId}`, {
+        method: 'GET',
+        redirect: 'follow'
+    })
+    const resJson = await res.json()
+    // console.log('photo: ', resJson)
+    const catIds = getArrayOfAssets(resJson);
+    // console.log('catIds array: ', catIds);
+    const catIdsString = catIds.toString();
+    // console.log('catIds string', catIdsString);
+    const mlRes = await fetchCookie(`https://search.macaulaylibrary.org/api/v1/search?includeUnconfirmed=T&sort=id_asc&catId=${catIdsString}`);
+    const mlResJson = await mlRes.json();
+    // console.log('mlResJson', mlResJson);
+    const resArr = await mlResJson.results.content;
+    // console.log('search response array', resArr);
+    return resArr;
+}
+
+function getArrayOfAssets(arr) {
+    return arr.map(x => x.assetId)
 }
