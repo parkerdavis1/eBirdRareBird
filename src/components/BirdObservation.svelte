@@ -39,7 +39,7 @@
         <p>{bird.howMany? bird.howMany : 'x'}</p>
     </div>
 
-    <div class="col-start-2 flex items-baseline">
+    <div class="col-start-2 flex items-baseline md:justify-start justify-between">
         <a href="{birdLink}" target="_blank" rel="noreferrer">
             <div class="flex flex-wrap items-baseline">
                 <span class="mx-1 text-base">{bird.comName}</span>

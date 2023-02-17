@@ -23,13 +23,14 @@
 
     {#if loaded}
         <div class="meta-overlay 
+                    flex flex-column flex-wrap gap-x-2
                     absolute bottom-0 left-0 right-0 w-full
                     p-1
                     bg-slate-900/75 text-slate-100
                     ">
             <!-- <p>{media.commonName}</p> -->
-            <p>&copy; {media.userDisplayName}</p>
-            <p>Macaulay Library</p>
+            <span class="text-xs font-bold">&copy; {media.userDisplayName}</span>
+            <span class="text-xs">Macaulay Library</span>
             <!-- {#if media.obsComments}
                 <p>{media.obsComments}</p>
             {/if} -->

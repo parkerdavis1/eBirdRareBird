@@ -6,6 +6,7 @@
     html {
         scroll-behavior: smooth;
     }
+
     a {
         @apply text-sky-700 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500
     }
