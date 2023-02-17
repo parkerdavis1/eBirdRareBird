@@ -8,8 +8,9 @@
     }
 
     a {
-        @apply text-sky-700 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500
+        @apply text-sky-800 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-400
     }
+    /* dark:text-sky-400 dark:hover:text-sky-500 */
 
     select {
         @apply px-2 py-1 my-4 rounded m-1 dark:bg-slate-700 dark:text-slate-100
