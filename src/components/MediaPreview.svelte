@@ -11,7 +11,7 @@
     <img 
         src="{media.previewUrl}" 
         alt="{media.commonName}"
-        class="h-60 max-w-full"
+        class="max-h-60 max-w-full"
         in:fade
         >
 
