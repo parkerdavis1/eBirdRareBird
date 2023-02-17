@@ -1,17 +1,14 @@
 <script>
-    import { enhance } from '$app/forms';
-    import { fade } from 'svelte/transition'
-
-    import makeFetchCookie from 'fetch-cookie';
-    const fetchCookie = makeFetchCookie(fetch);
-
-    import { allComments } from '../store'
+    export let bird;
 
     import dayjs from 'dayjs'
     import customParseFormat from 'dayjs/plugin/customParseFormat'
     dayjs.extend(customParseFormat)
 
-    export let bird;
+    import { enhance } from '$app/forms';
+    import { fade } from 'svelte/transition'
+
+    import { allComments } from '../store'
 
     import mapIcon from '../icons/map-marker.svg';
     import user from '../icons/person.svg';
@@ -45,11 +42,11 @@
     <div class="col-start-2 flex items-baseline">
         <a href="{birdLink}" target="_blank" rel="noreferrer">
             <div class="flex flex-wrap items-baseline">
-                <span class="mx-1 text-base whitespace-nowrap">{bird.comName}</span>
+                <span class="mx-1 text-base">{bird.comName}</span>
                 <span class="mx-1 text-xs italic text-gray-500 dark:text-gray-400 whitespace-nowrap">{bird.sciName}</span>
             </div>
         </a>
-        <span class="mx-3 text-xs font-medium {bird.obsReviewed? 'text-green-700 dark:text-green-500/90' : 'text-yellow-700 dark:text-yellow-400/90'}">{bird.obsReviewed? 'CONFIRMED' : 'UNCONFIRMED'}</span>
+        <span class="ml-3 text-xs font-medium {bird.obsReviewed? 'text-green-700 dark:text-green-500/90' : 'text-yellow-700 dark:text-yellow-400/90'}">{bird.obsReviewed? 'CONFIRMED' : 'UNCONFIRMED'}</span>
     </div>
 
     <div class="
@@ -90,20 +87,24 @@
                     </a>
                 {/if}
             </summary>
+
             {#if !obsDetails}
                 <p class="animate-pulse text-sm">Loading...</p>
             {:else}
                 <div class="col-start-2" in:fade>
                     <span class="text-sm" class:italic={obsDetails === 'No details'}>{obsDetails.comments}</span>
                     {#if obsDetails.media}
+                        <!-- <div class="media-container"> -->
                         <div class="flex gap-2 flex-wrap">
-                            {#each obsDetails.media as media}
-                                <MediaPreview media={media} />
+                        <!-- <div class="grid gap-2 grid-cols-1 sm:grid-cols-2"> -->
+                            {#each obsDetails.media as media, i}
+                                <MediaPreview media={media} delay={i}/>
                             {/each}
                         </div>
                     {/if}
                 </div>
             {/if}
+            
         </details>
 
     </form>

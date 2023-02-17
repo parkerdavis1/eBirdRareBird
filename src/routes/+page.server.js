@@ -73,14 +73,12 @@ export const actions = {
         const checklistId = data.get('checklistId');
         const obsId = data.get('obsId');
         const hasRichMedia = data.get('hasRichMedia');
-        console.log('HAS RICH MEDIA?', hasRichMedia);
 
         let returnObject = {};
         returnObject[obsId] = {};
 
         try {
             if (hasRichMedia === 'true') {
-                console.log('doing the has !rich media block')
                 let [comments, mediaArr] = await Promise.allSettled([
                     getComments({ checklistId, obsId }),
                     getMedia(obsId)
@@ -88,9 +86,7 @@ export const actions = {
                 returnObject[obsId].comments = comments.value;
                 returnObject[obsId].media = mediaArr.value;
             } else {
-                console.log('else block')
                 let comments = await getComments({ checklistId, obsId });
-                console.log('comments: ', comments)
                 returnObject[obsId].comments = comments;
             }
             console.log('returnObject: ', returnObject)
@@ -112,7 +108,7 @@ async function getComments({ checklistId, obsId }) {
     // console.log('returnObject: ', returnObject)
     if (!comments) {
         // returnObject[obsId].comments = 'No details';
-        return "No Details"
+        return "No details"
     }
     return comments
 }
