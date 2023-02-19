@@ -5,7 +5,7 @@
     import RegionForm from "../components/RegionForm.svelte";
     import Results from "../components/Results.svelte";
 
-    import { isRadiusView, allComments } from "../store";
+    import { isRadiusView, allComments, filters } from "../store";
 
     let birdData = {
         radius: undefined,
@@ -31,6 +31,10 @@
             }
         }
         // console.log($allComments);
+    }
+    // clear media only filter if switching to Radius view
+    $: if ($isRadiusView) {
+        $filters.onlyRichMedia = false;
     }
 </script>
 
