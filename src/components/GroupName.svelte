@@ -1,6 +1,5 @@
 <script>
     import BirdObservation from "./BirdObservation.svelte";
-    import { filters } from "../store";
 
     export let groupName;
     export let groupedBirdData;

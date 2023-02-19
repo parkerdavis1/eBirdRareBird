@@ -1,56 +1,107 @@
 <script>
     export let birdData
 
+    import BirdObservation from './BirdObservation.svelte';
+    import GroupName from './GroupName.svelte';
     import { page } from '$app/stores';
     import { loading, filters, isRadiusView } from '../store'
+    import taxonomy from '../taxonomy.json'
+    import FilterAndSortBar from './FilterAndSortBar.svelte';
 
-    import ListSorter from './ListSorter.svelte';
+    let filteredData
+    let groupedBirdData
+    let groupList
 
     $: if (birdData) {
         $loading = false
+        filteredData = filterObservations(birdData);
+        groupedBirdData = groupBy(filteredData, $filters.sortType);
+        if ($filters.sortType !== 'taxonomic') {
+            groupList = Object.keys(groupedBirdData).sort()
+        } else {
+            groupList = Object.keys(groupedBirdData).sort(taxonomySort)
+        }
+        // console.log('groupList', groupList)
+        // console.log('groupedBirdData', groupedBirdData);
     }
 
-    let showAll = false;
+    function taxonomySort(a,b) {
+        return taxonomy[a] - taxonomy[b];
+    }
 
+    function filterObservations(array) {
+        let obsIds = [];
+        let obsArr = [];
+        array.forEach(birdObs => {
+            // filter unconfirmed sightings
+            if ($filters.hideUnconfirmed && !birdObs.obsValid) return;
+            // filter media sightings
+            if ($filters.onlyRichMedia && !birdObs.hasRichMedia) return;
+            // remove duplicate sightings
+            if (!obsIds.includes(birdObs.obsId)) {
+                obsIds.push(birdObs.obsId);
+                obsArr.push(birdObs);
+            }
+        });
+        return obsArr;
+    }
+
+    function groupBy (array, sortType) {
+        let groupedObj = {};
+        array.forEach(birdObs => {
+            let groupId;
+            if (sortType === 'alpha' || sortType === 'taxonomic') {
+                groupId = birdObs.comName
+            } else if (sortType === 'location') {
+                groupId = birdObs.locName
+            } 
+            let existingObsIds = [];
+
+            if (!Object.keys(groupedObj).includes(groupId)) {
+                groupedObj[groupId] = [birdObs];
+            } else {
+                existingObsIds = groupedObj[groupId].map(obj => obj.obsId);
+                if (!existingObsIds.includes(birdObs.obsId)) {
+                    groupedObj[groupId].push(birdObs);
+                }
+            }
+        })
+        return groupedObj;
+    }
+
+    let showAll;
+    
+    function handleShowAllChange(event) {
+        showAll = event.detail.showAll;
+    }
 </script>
 
-<div id="results-container" class="flex flex-row flex-wrap sm:flex-row justify-between items-baseline gap-x-4
-            my-3 px-4 
-            ">
-    <div class:hidden={$filters.sortType === 'date'}>
-        <input type="checkbox" id="showAll" bind:checked={showAll}>
-        <label for="showAll">Expand all</label>
-    </div>
-    <div>
-        <input type="checkbox" id="hideUnconfirmed" bind:checked={$filters.hideUnconfirmed}>
-        <label for="hideUnconfirmed">Hide Unconfirmed</label>
-    </div>
-    {#if !$isRadiusView}
-        <div>
-            <input type="checkbox" id="onlyRichMedia" bind:checked={$filters.onlyRichMedia}>
-            <label for="onlyRichMedia">Media Only</label>
-        </div>
-    {/if}
-    <div>
-        <label for="sort">Sort by:</label>
-        <select name="sort" id="sort" bind:value={$filters.sortType}>
-            <option value="taxonomic">Species (taxonomic)</option>
-            <option value="alpha">Species (alphabetic)</option>
-            <option value="location">Location</option>
-            <option value="date">Date</option>
-        </select>
-    </div>
-</div>
+<FilterAndSortBar
+    on:showAllChange={handleShowAllChange}
+></FilterAndSortBar>
 
 {#if $loading}
     <p class="animate-pulse">Loading...</p>
 {:else if $page.error}
     <p>{$page.status}: {$page.error.message}</p>
-{:else if birdData?.length < 1}
+{:else if filteredData?.length < 1}
     <p>No results</p>
 {:else}
-    <ListSorter 
-        birdData={birdData}
-        showAll={showAll}
-    />
+    {#if birdData}
+        {#if $filters.sortType === 'date'}
+            {#each filteredData as bird (bird.obsId)}
+                <BirdObservation 
+                    bird={bird}
+                />
+            {/each}
+        {:else}
+            {#each groupList as groupName (groupName)}
+                <GroupName 
+                    groupedBirdData={groupedBirdData}
+                    groupName={groupName}
+                    showAll={showAll}
+                />
+            {/each}
+        {/if}
+    {/if}
 {/if}

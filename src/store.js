@@ -46,3 +46,6 @@ filters.subscribe(value => {
         localStorage.filters = JSON.stringify(value)
     }
 })
+
+// can't do this because opening one will open all if they are bound to its value
+// export const showAll = writable(false);
