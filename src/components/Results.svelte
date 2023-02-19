@@ -2,7 +2,7 @@
     export let birdData
 
     import { page } from '$app/stores';
-    import { loading, filters } from '../store'
+    import { loading, filters, isRadiusView } from '../store'
 
     import ListSorter from './ListSorter.svelte';
 
@@ -25,10 +25,12 @@
         <input type="checkbox" id="hideUnconfirmed" bind:checked={$filters.hideUnconfirmed}>
         <label for="hideUnconfirmed">Hide Unconfirmed</label>
     </div>
-    <div>
-        <input type="checkbox" id="onlyRichMedia" bind:checked={$filters.onlyRichMedia}>
-        <label for="onlyRichMedia">Media Only</label>
-    </div>
+    {#if !$isRadiusView}
+        <div>
+            <input type="checkbox" id="onlyRichMedia" bind:checked={$filters.onlyRichMedia}>
+            <label for="onlyRichMedia">Media Only</label>
+        </div>
+    {/if}
     <div>
         <label for="sort">Sort by:</label>
         <select name="sort" id="sort" bind:value={$filters.sortType}>
