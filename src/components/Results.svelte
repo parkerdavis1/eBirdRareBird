@@ -26,6 +26,10 @@
         <label for="hideUnconfirmed">Hide Unconfirmed</label>
     </div>
     <div>
+        <input type="checkbox" id="onlyRichMedia" bind:checked={$filters.onlyRichMedia}>
+        <label for="onlyRichMedia">Media Only</label>
+    </div>
+    <div>
         <label for="sort">Sort by:</label>
         <select name="sort" id="sort" bind:value={$filters.sortType}>
             <option value="taxonomic">Species (taxonomic)</option>

@@ -35,7 +35,11 @@ region.subscribe(value => {
     }
 });
 
-let filtersDefault = {hideUnconfirmed: false, sortType: 'taxonomic'}
+let filtersDefault = {
+    hideUnconfirmed: false, 
+    sortType: 'taxonomic',
+    onlyRichMedia: false
+}
 export const filters = writable(browser ? JSON.parse(localStorage.getItem('filters')) || filtersDefault : filtersDefault)
 filters.subscribe(value => {
     if (browser) {

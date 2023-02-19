@@ -14,7 +14,7 @@
 
     $: if (birdData) {
         filteredData = filterDuplicates(birdData);
-        groupedBirdData = groupBy(birdData, $filters.sortType, $filters.hideUnconfirmed);
+        groupedBirdData = groupBy(birdData, $filters.sortType);
         if ($filters.sortType !== 'taxonomic') {
             groupList = Object.keys(groupedBirdData).sort()
         } else {
@@ -33,6 +33,7 @@
         let obsArr = [];
         array.forEach(birdObs => {
             if ($filters.hideUnconfirmed && !birdObs.obsValid) return;
+            if ($filters.onlyRichMedia && !birdObs.hasRichMedia) return;
             if (!obsIds.includes(birdObs.obsId)) {
                 obsIds.push(birdObs.obsId);
                 obsArr.push(birdObs);
@@ -41,11 +42,12 @@
         return obsArr;
     }
 
-    function groupBy (array, sortType, hideUnconfirmed) {
+    function groupBy (array, sortType) {
         let groupedObj = {};
         array.forEach(birdObs => {
             let groupId;
-            if (hideUnconfirmed && !birdObs.obsValid) return;
+            // if (hideUnconfirmed && !birdObs.obsValid) return;
+            // if (onlyRichMedia && !birdObs.hasRichMedia) return;
             if (sortType === 'alpha' || sortType === 'taxonomic') {
                 groupId = birdObs.comName
             } else if (sortType === 'location') {
