@@ -14,7 +14,7 @@
 
     $: if (birdData) {
         filteredData = filterDuplicates(birdData);
-        groupedBirdData = groupBy(birdData, $filters.sortType);
+        groupedBirdData = groupBy(filteredData, $filters.sortType);
         if ($filters.sortType !== 'taxonomic') {
             groupList = Object.keys(groupedBirdData).sort()
         } else {
