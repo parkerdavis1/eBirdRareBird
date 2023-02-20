@@ -1,8 +1,7 @@
 <script>
     // import "../css/pico.min.css"
     import "../css/app.css"
-    // import { page } from '$app/stores';
-
+    import { page } from '$app/stores';
     import { isRadiusView } from "../store";
 
 
@@ -12,6 +11,10 @@
 <svelte:head>
     <title>Rare Bird Alert</title>
 </svelte:head>
+
+{#if $page.url.pathname.includes('/test-page')}
+    <slot></slot>
+{:else}
 
 <!-- <div class="max-w-4xl mx-auto drop-shadow-2xl min-h-screen my-0 p-[min(10%, 2rem)]"> -->
     <main class="max-w-4xl mx-auto mt-4 p-4 min-h-screen">
@@ -35,6 +38,8 @@
         <slot></slot>
     </main>
 <!-- </div> -->
+
+{/if}
 
 <style lang="postcss">
     .active {

@@ -70,11 +70,6 @@
         color: unset;
         transition: opacity 500ms ease;
     }
-
-    p {
-        @apply text-sm;
-    }
-
 </style>
 
 

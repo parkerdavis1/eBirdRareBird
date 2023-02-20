@@ -1,5 +1,1 @@
-<script>
-    import BirdObservation from "../../components/BirdObservation.svelte";
-</script>
-
-<BirdObservation />
+<h1>Hello</h1>
