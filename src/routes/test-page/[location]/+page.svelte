@@ -15,7 +15,7 @@
     }
 </script>
 
-<div class="dark:bg-white dark:text-slate-900 bg-slate-900 text-slate-50 text-sm">
+<div class="dark:bg-slate-600 dark:text-slate-50 bg-slate-900 text-slate-50 text-sm">
     <div class="container mx-auto max-w-5xl
                 px-4 py-5
                 flex gap-4 h-10 min-h-max items-center 

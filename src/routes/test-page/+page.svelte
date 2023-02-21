@@ -1,1 +1,7 @@
-<h1>Hello</h1>
+<script>
+    import AltRegionForm from '../../components/AltRegionForm.svelte'
+</script>
+
+<div class="container max-w-lg mx-auto">
+    <AltRegionForm />
+</div>
