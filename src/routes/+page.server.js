@@ -95,6 +95,22 @@ export const actions = {
         } catch (err){
             console.log(err);
         }
+    },
+
+    regionSearch: async ({ request }) => {
+        const data = await request.formData();
+        const query = data.get('regionSearch');
+        try {
+            const res = await fetchCookie(`https://api.ebird.org/v2/ref/region/find?key=jfekjedvescr&q=${query}`);
+            const resJson = await res.json();
+            console.log('region search result', resJson);
+            return {
+                regionResults: resJson
+            }
+
+        } catch (err){
+            console.log(err);
+        }
     }
 }
 

@@ -24,6 +24,11 @@
         // console.log('region bird data', birdData.region)
     }
 
+    let regionData = null;
+    $: if (form?.regionResults) {
+        regionData = form.regionResults
+    }
+
     $: if (form) {
         for (const [key, value] of Object.entries(form)) {
             if (key !== 'region' && key !== 'radius') {
@@ -47,7 +52,9 @@
     />
 {:else}
     <div class="form-container">
-        <RegionForm />
+        <RegionForm 
+            regionData={regionData}
+        />
     </div>
     <Results 
         birdData={birdData.region}
