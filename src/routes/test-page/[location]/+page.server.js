@@ -1,4 +1,6 @@
 import { EBIRD_API } from '$env/static/private';
+import { regionSearch, region } from '../regionSearch';
+
 import makeFetchCookie from 'fetch-cookie';
 const fetchCookie = makeFetchCookie(fetch);
 
@@ -39,19 +41,21 @@ export const actions = {
         } catch (err){
             console.log(err);
         }
-    }
+    },
+    regionSearch: regionSearch,
+    region: region
 }
 
 export async function load({ params, url }) {
     // console.log('params!', params);
-    console.log('url', url)
+    // console.log('url', url)
     const fetchBirdData = async () => {
         const days = daysLimiter(url.searchParams.get('days')) || 3; //daysLimiter limits queryParam to 1-30
-        console.log('days used: ', days)
+        // console.log('days used: ', days)
         const queries = `?detail=full&back=${days}`
         const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent/notable${queries}`, requestOptions);
         const resJson = await res.json();
-        console.log('BIRD DATA, ', Array.isArray(resJson));
+        // console.log('BIRD DATA, ', Array.isArray(resJson));
         const filteredData = filterObservations(resJson);
         return filteredData;
     }
