@@ -13,11 +13,7 @@
     /* dark:text-sky-400 dark:hover:text-sky-500 */
 
     select {
-        @apply px-2 py-1 my-4 rounded m-1 dark:bg-slate-700 dark:text-slate-100
-    }
-
-    input {
-        @apply my-3
+        @apply px-2 py-1 my-4 rounded m-1 dark:bg-slate-700 dark:text-slate-100 border border-black
     }
 
     input[type="text"] {

@@ -27,7 +27,7 @@ radius.subscribe(value => {
     }
 });
 
-let regionDefault = { days: 3, region: 'US-AZ-013'}
+let regionDefault = { days: 14, region: 'US-AZ-013'}
 export const region = writable(browser ? JSON.parse(localStorage.getItem('regionFormInputs')) || regionDefault : regionDefault)
 region.subscribe(value => {
     if (browser) {
@@ -36,14 +36,14 @@ region.subscribe(value => {
 });
 
 let filtersDefault = {
-    hideUnconfirmed: false, 
+    hideUnconfirmed: { value: false, label: "Hide Unconfirmed" },
     sortType: 'taxonomic',
-    onlyRichMedia: false
+    onlyRichMedia: { value: false, label: "Media" }
 }
-export const filters = writable(browser ? JSON.parse(localStorage.getItem('filters')) || filtersDefault : filtersDefault)
+export const filters = writable(browser ? JSON.parse(sessionStorage.getItem('filters')) || filtersDefault : filtersDefault)
 filters.subscribe(value => {
     if (browser) {
-        localStorage.filters = JSON.stringify(value)
+        sessionStorage.filters = JSON.stringify(value)
     }
 })
 

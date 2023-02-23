@@ -2,6 +2,7 @@
     import { filters, isRadiusView} from '../store'
     import { createEventDispatcher } from 'svelte';
     import FilterModal from './FilterModal.svelte';
+    import FilterTag from './FilterTag.svelte';
     import { clickOutside } from '../utils/click-outside';
     import { fade, fly } from 'svelte/transition'
 
@@ -35,20 +36,38 @@
         })
     }
 
+    let activeFilters;
+    $: if ($filters) {
+        activeFilters = getActiveFilters()
+    }
+
+   function getActiveFilters() {
+        let activeFilters = []
+        for (const [key, value] of Object.entries($filters)) {
+            if (value.value === true) {
+                activeFilters.push({ key, value })
+            }
+        }
+        console.log('activeFilters!', activeFilters)
+        return activeFilters;
+   } 
+
 
 </script>
 
-<div id="results-container" class="flex flex-row flex-wrap sm:flex-row justify-end items-baseline gap-x-4
-            my-3 px-4 
-            relative
-            ">
+<div id="results-container" class="flex flex-row flex-wrap sm:flex-row items-baseline gap-x-4 mt-4 relative">
     <!-- <div class:hidden={$filters.sortType === 'date'}>
         <input type="checkbox" id="showAll" bind:checked={showAll}>
         <label for="showAll">Expand all</label>
     </div> -->
-    <div class="flex items-baseline gap-x-4 flex-wrap">
-        <div>
-            <label for="sort">Sort by:</label>
+    <div class="flex items-baseline gap-x-4 w-full flex-wrap md:flex-nowrap">
+        <div class="flex justify-start gap-2 flex-wrap">
+            {#each activeFilters as filter}
+                <FilterTag filter={filter} />
+            {/each}
+        </div>
+        <div class="ml-auto">
+            <!-- <label for="sort">Sort by:</label> -->
             <select name="sort" id="sort" bind:value={$filters.sortType}>
                 <option value="taxonomic">Species (taxonomic)</option>
                 <option value="alpha">Species (alphabetic)</option>

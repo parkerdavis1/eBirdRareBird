@@ -66,6 +66,7 @@ export async function load({ params, url }) {
     }
 
     return {
+        days: daysLimiter(url.searchParams.get('days')) || 3,
         location: fetchLocationName(),
         birdObs: fetchBirdData()
     }

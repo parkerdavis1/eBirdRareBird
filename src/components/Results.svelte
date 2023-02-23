@@ -6,7 +6,7 @@
     import { page } from '$app/stores';
     import { loading, filters, isRadiusView } from '../store'
     import taxonomy from '../taxonomy.json'
-    import FilterAndSortBar from './FilterAndSortBar.svelte';
+    import SortBar from './SortBar.svelte';
 
     let filteredData
     let groupedBirdData
@@ -76,9 +76,9 @@
     }
 </script>
 
-<FilterAndSortBar
+<SortBar
     on:showAllChange={handleShowAllChange}
-></FilterAndSortBar>
+></SortBar>
 
 {#if $loading}
     <p class="animate-pulse">Loading...</p>
