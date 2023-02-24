@@ -72,7 +72,7 @@
         </p>
     </div>
 
-    <form method="POST" action="?/getComments" on:submit|preventDefault class="col-start-2" bind:this={commentForm} use:enhance>
+    <form method="POST" action="?/getComments" class="col-start-2" bind:this={commentForm} use:enhance>
         <input type="hidden" name="checklistId" value={bird.subId}>
         <input type="hidden" name="obsId" value={bird.obsId}>
         <input type="hidden" name="hasRichMedia" value={bird.hasRichMedia}>
@@ -104,9 +104,7 @@
                     {/if}
                 </div>
             {/if}
-            
         </details>
-
     </form>
 
 </div>
