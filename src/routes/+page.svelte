@@ -1,68 +1,44 @@
 <script>
-    export let form;
+    import AltRegionForm from '$lib/components/AltRegionForm.svelte'
+    import RegionForm from '$lib/components/RegionForm.svelte'
+    import { region } from '$lib/store';
 
-    import RadiusForm from "../components/RadiusForm.svelte";
-    import RegionForm from "../components/RegionForm.svelte";
-    import Results from "../components/Results.svelte";
+    export let form
 
-    import { isRadiusView, allComments, filters } from "../store";
-
-    let birdData = {
-        radius: undefined,
-        region: undefined
-    }
-
-    $: if (form?.radius) {
-        birdData.radius = form.radius;
-        // console.log('radius bird data success!')
-        // console.log('radius bird data', birdData.radius)
-    }
-
-    $: if (form?.region) {
-        birdData.region = form.region;
-        // console.log('region bird data success!')
-        // console.log('region bird data', birdData.region)
-    }
-
-    let regionData = null;
-    $: if (form?.regionResults) {
-        regionData = form.regionResults
-    }
-
-    $: if (form) {
-        for (const [key, value] of Object.entries(form)) {
-            if (key !== 'region' && key !== 'radius') {
-                $allComments[key] = value;
-            }
-        }
-        // console.log($allComments);
-    }
-    // clear media only filter if switching to Radius view
-    $: if ($isRadiusView) {
-        $filters.onlyRichMedia = false;
-    }
+    $: regionData = form?.regionResults
+    $: searchInput = form?.searchInput
 </script>
 
-{#if $isRadiusView}
-    <div class="form-container">
-        <RadiusForm />
+<div class="container mx-auto my-10 h-[80vh] h-[80svh] grid place-content-center w-full p-4">
+
+    <div class="flex flex-wrap justify-center">
+        <pre class="select-none">
+  __    _   __   ___  
+  )_)  /_)  )_)  )_   
+ / \  / /  / \  (__   
+        </pre>
+        <pre class="select-none">
+  __   ___  __   __   
+  )_)   )   )_)  ) )  
+ /__) _(_  / \  /_/   
+        </pre>
+        <pre class="select-none">
+   _       ___  __  ___  
+  /_)  )   )_   )_)  )   
+ / /  (__ (__  / \  (    
+        </pre>
     </div>
-    <Results 
-        birdData={birdData.radius}
-    />
-{:else}
-    <div class="form-container">
-        <RegionForm 
+
+    <div class="my-10">
+        <AltRegionForm 
             regionData={regionData}
+            searchInput={searchInput}
         />
     </div>
-    <Results 
-        birdData={birdData.region}
-    />
-{/if}
 
-<style lang="postcss">
-    .form-container {
-        @apply bg-slate-100 dark:bg-slate-800 rounded-b-lg p-4;
-    }
-</style>
+    <form method="POST" id="region" action="?/region" class="flex flex-col flex-wrap align-center">
+        <input type="hidden" name="regionId" bind:value={$region.region}>
+        <label for="days">Time period (days ago): {$region.days}</label>
+        <input type="range" name="days" id="days" min="1" max="30" form="region" bind:value={$region.days}>
+    </form>
+</div>

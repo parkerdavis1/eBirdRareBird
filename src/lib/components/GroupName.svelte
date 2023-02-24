@@ -1,5 +1,5 @@
 <script>
-    import BirdObservation from "./BirdObservation.svelte";
+    import BirdObservation from "$lib/components/BirdObservation.svelte";
 
     export let groupName;
     export let groupedBirdData;

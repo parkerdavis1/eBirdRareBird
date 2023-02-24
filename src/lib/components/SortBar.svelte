@@ -1,9 +1,9 @@
 <script>
-    import { filters, isRadiusView} from '../store'
+    import { filters, isRadiusView} from '$lib/store'
     import { createEventDispatcher } from 'svelte';
-    import FilterModal from './FilterModal.svelte';
-    import FilterTag from './FilterTag.svelte';
-    import { clickOutside } from '../utils/click-outside';
+    import FilterModal from '$lib/components/FilterModal.svelte';
+    import FilterTag from '$lib/components/FilterTag.svelte';
+    import { clickOutside } from '$lib/utils/click-outside';
     import { fade, fly } from 'svelte/transition'
 
     const dispatch = createEventDispatcher();
@@ -22,7 +22,7 @@
     let showFilterModal = false;
 
     function handleFilterButtonClick() {
-        console.log("handleFilterButtonClick")
+        // console.log("handleFilterButtonClick")
         if (showFilterModal == false) {
             showFilterModal = true;
         }
@@ -48,7 +48,7 @@
                 activeFilters.push({ key, value })
             }
         }
-        console.log('activeFilters!', activeFilters)
+        // console.log('activeFilters!', activeFilters)
         return activeFilters;
    } 
 

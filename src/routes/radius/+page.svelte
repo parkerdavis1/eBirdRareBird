@@ -1,10 +1,10 @@
 <script>
     export let form
 
-    import RadiusForm from "../../components/RadiusForm.svelte";
-    import Results from '../../components/Results.svelte'
+    import RadiusForm from "$lib/components/RadiusForm.svelte";
+    import Results from '$lib/components/Results.svelte'
 
-    import { allComments } from '../../store'
+    import { allComments } from '$lib/store'
 
     let birdData;
     let filters = {

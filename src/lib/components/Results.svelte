@@ -1,12 +1,12 @@
 <script>
     export let birdData
 
-    import BirdObservation from './BirdObservation.svelte';
-    import GroupName from './GroupName.svelte';
+    import BirdObservation from '$lib/components/BirdObservation.svelte';
+    import GroupName from '$lib/components/GroupName.svelte';
     import { page } from '$app/stores';
-    import { loading, filters, isRadiusView } from '../store'
-    import taxonomy from '../taxonomy.json'
-    import SortBar from './SortBar.svelte';
+    import { loading, filters, isRadiusView } from '$lib/store'
+    import taxonomy from '$lib/utils/taxonomy.json'
+    import SortBar from '$lib/components/SortBar.svelte';
 
     let filteredData
     let groupedBirdData

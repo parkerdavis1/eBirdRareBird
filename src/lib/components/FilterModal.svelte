@@ -1,6 +1,6 @@
 <script>
-    import { isRadiusView, filters, region } from "../store";
-    import CloseButton from "./CloseButton.svelte";
+    import { isRadiusView, filters, region } from "$lib/store";
+    import CloseButton from "$lib/components/CloseButton.svelte";
 
     let slider;
 </script>

@@ -1,10 +1,10 @@
 <script>
     import { enhance, applyAction } from '$app/forms';
     import { browser } from '$app/environment';
-    import { debounce } from '../debounce';
+    import { debounce } from '$lib/utils/debounce';
     export let regionData;
 
-    import { region, loading } from '../store';
+    import { region, loading } from '$lib/store';
 
     function handleSubmit() {
         $loading = true;
@@ -26,7 +26,7 @@
     let selectElement;
 
     function regionInputChange() {
-        console.log('HELLO')
+        // console.log('HELLO')
         regionSearchForm.requestSubmit();
         regionInputElement.blur();
     }

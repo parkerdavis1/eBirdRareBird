@@ -23,6 +23,6 @@ export const region = async({ request }) => {
     const data = await request.formData();
     const regionId = data.get('regionId');
     const days = data.get('days')
-    const pathname = `/test-page/${regionId}?days=${days}`
+    const pathname = `/${regionId}?days=${days}`
     throw redirect(303, pathname)
 }

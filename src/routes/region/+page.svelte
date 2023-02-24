@@ -1,5 +1,5 @@
 <script>
-    import RegionForm from "../../components/RegionForm.svelte";
+    import RegionForm from "$lib/components/RegionForm.svelte";
 </script>
 
 <RegionForm />

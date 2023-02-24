@@ -1,6 +1,6 @@
 <script>
     import { enhance, applyAction } from '$app/forms';
-    import { loading, radius, latLon } from '../store';
+    import { loading, radius, latLon } from '$lib/store';
 
     $: distance_mi = Math.round($radius.distance * 0.62137119);
 

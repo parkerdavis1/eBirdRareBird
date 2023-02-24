@@ -8,14 +8,14 @@
     import { enhance } from '$app/forms';
     import { fade } from 'svelte/transition'
 
-    import { allComments } from '../store'
+    import { allComments } from '$lib/store'
 
-    import mapIcon from '../icons/map-marker.svg';
-    import user from '../icons/person.svg';
-    import calendar from '../icons/calendar-month-rounded.svg';
-    import speechBubble from '../icons/speech-bubble-ltr.svg';
-    import camera from '../icons/photo-camera-rounded.svg';
-    import MediaPreview from './MediaPreview.svelte';
+    import mapIcon from '$lib/icons/map-marker.svg';
+    import user from '$lib/icons/person.svg';
+    import calendar from '$lib/icons/calendar-month-rounded.svg';
+    import speechBubble from '$lib/icons/speech-bubble-ltr.svg';
+    import camera from '$lib/icons/photo-camera-rounded.svg';
+    import MediaPreview from '$lib/components/MediaPreview.svelte';
 
     $: obsDetails = $allComments[bird.obsId];
 
@@ -26,11 +26,11 @@
     const formattedDate = dayjs(bird.obsDt, "YYYY-MM-DD HH:mm").format("MMM D, YYYY HH:mm");
 
     let commentForm;
+    let commentSubmitButton
     let media;
 
-    async function getComment(event) {
-        event.preventDefault()
-        commentForm.requestSubmit()
+    async function getComment() {
+        commentSubmitButton.click()
     }
 </script>
 <hr>
@@ -72,10 +72,11 @@
         </p>
     </div>
 
-    <form method="POST" action="?/getComments" class="col-start-2" bind:this={commentForm} use:enhance>
+    <form method="POST" action="?/getComments" class="col-start-2" bind:this={commentForm} on:submit|preventDefault use:enhance>
         <input type="hidden" name="checklistId" value={bird.subId}>
         <input type="hidden" name="obsId" value={bird.obsId}>
         <input type="hidden" name="hasRichMedia" value={bird.hasRichMedia}>
+        <button type="submit" hidden bind:this={commentSubmitButton}></button>
 
         <details on:toggle|once={getComment}>
             <summary class="cursor-pointer">
