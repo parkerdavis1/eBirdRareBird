@@ -15,10 +15,10 @@
 
 <details bind:open={showAll} class="transition-[margin] duration-200 ease-out open:mb-8">
     <summary class="cursor-pointer my-2">
-  
         <span>{groupName}</span> 
-        <!-- <span class="circle-badge inline-block text-xs bg-sky-300/20 rounded-full px-2 py-[0.1rem] mx-1">{obsOfSpecies.length}</span> -->
-  
+        {#if !showAll}
+        <span class="opacity-80 circle-badge inline-block text-xs bg-sky-300/20 rounded-full px-2 py-[0.1rem] mx-1">{obsOfSpecies.length}</span>
+        {/if}
     </summary>
     {#each obsOfSpecies as bird (bird.obsId)}
         <BirdObservation 
