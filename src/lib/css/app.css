@@ -16,13 +16,13 @@
         @apply px-2 py-1 my-4 rounded m-1 dark:bg-slate-700 dark:text-slate-100 border border-black
     }
 
-    input[type="text"] {
-        @apply dark:bg-slate-900 dark:text-slate-300 outline dark:outline-slate-500 outline-1 rounded p-1
-    }
+    /* input[type="text"] {
+        @apply dark:bg-slate-900 dark:text-slate-300 outline dark:outline-slate-500 outline-1 rounded-full p-1
+    } */
 
-    input:focus, button:focus {
+    /* input:focus, button:focus {
         @apply outline-1 outline-blue-500
-    }
+    } */
 
     .submit-button {
         @apply px-2 py-1 my-2 rounded text-white 
