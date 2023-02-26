@@ -88,9 +88,9 @@
                     </a>
                 {/if}
             </summary>
-
             {#if !obsDetails}
-                <p class="animate-pulse text-sm">Loading...</p>
+                <noscript><span>Javascript must be enabled to load details</span></noscript>
+                <p class="animate-pulse text-sm" id="loading">Loading...</p>
             {:else}
                 <div class="col-start-2" in:fade>
                     <span class="text-sm" class:italic={obsDetails === 'No details'}>{obsDetails.comments}</span>
@@ -107,5 +107,4 @@
             {/if}
         </details>
     </form>
-
 </div>
