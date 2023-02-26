@@ -1,6 +1,7 @@
 <script>
     import { filters, isRadiusView} from '$lib/store'
     import { createEventDispatcher } from 'svelte';
+    import { page } from '$app/stores';
     import FilterModal from '$lib/components/FilterModal.svelte';
     import FilterTag from '$lib/components/FilterTag.svelte';
     import { clickOutside } from '$lib/utils/click-outside';
@@ -52,7 +53,10 @@
         return activeFilters;
    } 
 
+   console.log('from sortbar page: ', $page.url.searchParams.get('days'))
+   $: days = $page.url.searchParams.get('days')
 
+   $: daysAgoFilter = { value: { label: `Observations for past ${days == 1 ? 'day' : `${days} days`}` } }
 </script>
 
 <div id="results-container" class="flex flex-row flex-wrap sm:flex-row items-baseline gap-x-4 mt-4 relative">
@@ -62,6 +66,9 @@
     </div> -->
     <div class="flex items-baseline gap-x-4 w-full flex-wrap md:flex-nowrap">
         <div class="flex justify-start gap-2 flex-wrap">
+                <button on:click={() => dispatch('openFilterModal')}>
+                    <FilterTag filter={daysAgoFilter} daysAgo={true}/>
+                </button>
             {#each activeFilters as filter}
                 <FilterTag filter={filter} />
             {/each}

@@ -37,7 +37,7 @@
         regionData = form.regionResults
     }
 
-    let birdData = data.birdObs  
+    $: birdData = data.birdObs  
 
     let filteredData;
     $: {
@@ -181,13 +181,14 @@
                 <!-- <h3 class="text-xs">in the past {data.days} days</h3>  -->
             </div>
         </div>
+
     </div>
 
 </div>
 
 <div class="text-slate-800 dark:text-slate-100">
     <div class="container mx-auto max-w-5xl px-4">
-        <SortBar />
+        <SortBar on:openFilterModal={() => showFilterModal = true}/>
     </div>
 
     <ul class="container mx-auto max-w-5xl p-4">
