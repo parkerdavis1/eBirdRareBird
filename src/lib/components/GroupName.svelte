@@ -17,10 +17,12 @@
 
 <details bind:open={showAll} class="transition-[margin] duration-200 ease-out open:mb-8">
     <summary class="cursor-pointer my-2">
-        <div class="inline-flex items-center">
+    <!-- <summary> -->
+        <!-- <div class="inline-flex items-center flex-nowrap"> -->
+        <div class="inline">
             <span>{groupName}</span> 
             {#if !showAll}
-            <span transition:fade={{duration:100}} class="opacity-80 circle-badge inline-block relative top-[1px] text-xs bg-sky-300/20 rounded-full px-2 py-[0.1rem] mx-1">{obsOfSpecies.length}</span>
+            <span transition:fade={{duration:100}} id="circle" class="relative bottom-[1px] opacity-80 circle-badge inline-block text-xs bg-sky-300/20 rounded-full px-2 mx-1">{obsOfSpecies.length}</span>
             {/if}
         </div>
     </summary>

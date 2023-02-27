@@ -10,8 +10,7 @@
     $: searchInput = form?.searchInput
 </script>
 
-<div class="container mx-auto my-10 h-[80vh] h-[80svh] grid place-content-center w-full p-4">
-
+<div class="container mx-auto my-10 h-[90vh] h-[90svh] grid place-content-center w-full p-4">
     <div class="flex flex-wrap justify-center">
         <pre class="select-none">
   __    _   __   ___  
@@ -29,15 +28,16 @@
  / /  (__ (__  / \  (    
         </pre>
     </div>
-
-    <div class="my-10">
-        <AltRegionForm 
-            regionData={regionData}
-            searchInput={searchInput}
-        />
-    </div>
-    <div class="mx-auto">
-        <DaysPicker home={true} />
+    <div class="flex flex-col items-stretch">
+        <div class="my-10">
+            <AltRegionForm 
+                regionData={regionData}
+                searchInput={searchInput}
+            />
+        </div>
+        <div class="self-center max-w-[90%]">
+            <DaysPicker home={true} />
+        </div>
     </div>
     <!-- <form method="POST" id="region" action="?/region" class="flex flex-col flex-wrap align-center">
         <input type="hidden" name="regionId" bind:value={$region.region}>

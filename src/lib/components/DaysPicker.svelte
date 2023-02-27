@@ -39,7 +39,7 @@
 </script>
 
 <h2>Time period (days ago):</h2>
-<div class="flex border border-black dark:border-slate-200 w-fit rounded-lg">
+<div class="flex justify-between border border-black dark:border-slate-200 w-80 max-w-full rounded-lg">
     <!-- <a href="?days=3">CLICK FOR 3</a> -->
     <button on:click={handleClick} class:active={currentActive === '1'}>1</button>
     <button on:click={handleClick} class:active={currentActive === '3'}>3</button>
@@ -55,7 +55,7 @@
 
 <style lang="postcss">
     button {
-        @apply py-4 px-6 border-r border-slate-400 dark:border-slate-400 bg-white dark:bg-slate-800
+        @apply py-4 border-r border-slate-400 dark:border-slate-400 bg-white dark:bg-slate-800 w-full
     }
 
     button:first-of-type {
