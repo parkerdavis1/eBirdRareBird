@@ -2,8 +2,6 @@
     import { isRadiusView, filters, region } from "$lib/store";
     import CloseButton from "$lib/components/CloseButton.svelte";
     import DaysPicker from "./DaysPicker.svelte";
-
-    let slider;
 </script>
 
 <div class="absolute top-full

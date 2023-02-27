@@ -1,7 +1,8 @@
 <script>
-    import { filters, isRadiusView} from '$lib/store'
+    import { filters, isRadiusView, region } from '$lib/store'
     import { createEventDispatcher } from 'svelte';
     import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
     import FilterModal from '$lib/components/FilterModal.svelte';
     import FilterTag from '$lib/components/FilterTag.svelte';
     import { clickOutside } from '$lib/utils/click-outside';
@@ -40,14 +41,15 @@
     }
 
     let activeFilters;
-    $: if ($filters) {
+    $: if ($filters) { //include this to update activeFilters when filters changes
         activeFilters = getActiveFilters()
     }
 
    function getActiveFilters() {
         let activeFilters = []
         for (const [key, value] of Object.entries($filters)) {
-            if (value.value === true) {
+            // console.log('[key, value]', [key, value])
+            if (value.value && value.value === true) {
                 activeFilters.push({ key, value })
             }
         }
@@ -55,10 +57,19 @@
         return activeFilters;
    } 
 
-   console.log('from sortbar page: ', $page.url.searchParams.get('days'))
-   $: days = $page.url.searchParams.get('days')
+//    $: days = $page.url.searchParams.get('days')
+   $: {
+    // console.log('days store from sort bar:', $filters.days)
+   }
 
-   $: daysAgoFilter = { value: { label: `Observations for past ${days == 1 ? 'day' : `${days} days`}` } }
+   $: daysAgoFilter = { value: { label: `Observations for past ${$filters.days == 1 ? 'day' : `${$filters.days} days`}` } }
+
+   function handleSortClick(sortType) {
+        $page.url.searchParams.set('sortType', sortType)
+        goto(`?${$page.url.searchParams.toString()}`);
+        $filters.sortType = sortType;
+        openSort = false;
+   }
 </script>
 
 <div id="results-container" class="flex flex-row flex-wrap sm:flex-row items-baseline gap-x-4 mt-4 relative">
@@ -88,12 +99,11 @@
                 </svg>
             </button>
             {#if openSort}
-                <!-- <div class="sort-modal arrow-box absolute right-0 bg-white flex flex-col items-start p-4 shadow-lg outline outline-1 outline-black"> -->
                 <div class="sort-modal">
-                    <button class="sort-options">Species (taxonomic)</button>
-                    <button class="sort-options">Species (alphabetic)</button>
-                    <button class="sort-options">Location</button>
-                    <button class="sort-options">Date</button>
+                    <button class="sort-options" on:click={() => handleSortClick('taxonomic')}>Species (taxonomic)</button>
+                    <button class="sort-options" on:click={()=> handleSortClick('alpha')}>Species (alphabetic)</button>
+                    <button class="sort-options" on:click={()=> handleSortClick('location')}>Location</button>
+                    <button class="sort-options" on:click={()=> handleSortClick('date')}>Date</button>
                 </div>
             {/if}
         </div>

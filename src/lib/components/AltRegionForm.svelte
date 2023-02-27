@@ -4,7 +4,7 @@
     import { clickOutside } from '$lib/utils/click-outside';
     export let regionData;
 
-    import { region, loading } from '$lib/store';
+    import { region, loading, filters } from '$lib/store';
 
     function handleSubmit() {
         $loading = true;
@@ -106,7 +106,7 @@
                 <ul>
                     {#if regionResultsList.length > 0}
                         {#each regionResultsList as loc}
-                        <li class="p-2 hover:bg-sky-200"> <!-- dark:hover:bg-sky-700 -->
+                        <li class="p-2 hover:bg-sky-100"> <!-- dark:hover:bg-sky-700 -->
                             <button class="w-full text-left" type="submit" form="region" on:click={()=> $region.region=loc.code}>
                                 {loc.name}
                             </button>
@@ -127,5 +127,5 @@
 
 <form method="POST" id="region" action="?/region" class="container" bind:this={regionSubmitForm}>
     <input type="hidden" name="regionId" form="region" bind:value={$region.region} required>
-    <input type="hidden" name="days" form="region" bind:value={$region.days} required>
+    <input type="hidden" name="days" form="region" bind:value={$filters.days} required>
 </form>

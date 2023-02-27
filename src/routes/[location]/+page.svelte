@@ -7,7 +7,12 @@
     import GroupName from "$lib/components/GroupName.svelte";
     import LocationModal from "$lib/components/LocationModal.svelte";
     import FilterModal from "$lib/components/FilterModal.svelte";
-    import { allComments, loading, filters } from '$lib/store';
+
+    import { allComments, loading, filters, region } from '$lib/store';
+    import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
+    import { browser } from '$app/environment'; 
+
     import taxonomy from '$lib/utils/taxonomy.json'
     import { clickOutside } from "$lib/utils/click-outside";
 
@@ -18,6 +23,27 @@
     let groupList;
     let showAll;
 
+    $: { 
+        $filters.days = data.days
+        // $filters.hideUnconfirmed.value = data.hideUnconfirmed
+        // $page.url.searchParams.set('hideUnconfirmed', $filters.hideUnconfirmed.value); 
+        // $filters.onlyRichMedia.value = data.onlyRichMedia
+        // $page.url.searchParams.set('onlyRichMedia', $filters.onlyRichMedia.value); 
+        // if (browser) {
+        //     goto(`?${$page.url.searchParams.toString()}`);
+        // }
+    }
+
+    let sortTypes = ['taxonomic', 'alpha', 'location', 'date']
+    $: if ($page.url.searchParams.get('sortType') !== null) {
+        sortTypes.forEach(type => {
+            if (type === $page.url.searchParams.get('sortType').toLowerCase()) {
+                $filters.sortType = $page.url.searchParams.get('sortType').toLowerCase();
+            }
+        })
+    }
+        
+    
 
     $: if (form) {
         for (const [key, value] of Object.entries(form)) {

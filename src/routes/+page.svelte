@@ -1,8 +1,6 @@
 <script>
     import AltRegionForm from '$lib/components/AltRegionForm.svelte'
-    import RegionForm from '$lib/components/RegionForm.svelte'
     import DaysPicker from '$lib/components/DaysPicker.svelte';
-    import { region } from '$lib/store';
 
     export let form
 

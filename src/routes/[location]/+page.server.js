@@ -1,5 +1,7 @@
 import { EBIRD_API } from '$env/static/private';
 import { regionSearch, region } from '$lib/utils/regionSearch';
+import { filters } from '$lib/store';
+import { get } from 'svelte/store'
 
 import makeFetchCookie from 'fetch-cookie';
 const fetchCookie = makeFetchCookie(fetch);
@@ -49,9 +51,15 @@ export const actions = {
 export async function load({ params, url }) {
     // console.log('params!', params);
     // console.log('url', url)
+    let days;
+    if (url.searchParams.get('days') !== null) { //if there are searchParams, use them
+        days = daysLimiter(url.searchParams.get('days')); //daysLimiter limits queryParam to 1-30
+    } else { // else use the filters.days default
+        days = get(filters.days); 
+    }
+
     const fetchBirdData = async () => {
-        const days = daysLimiter(url.searchParams.get('days')) || 3; //daysLimiter limits queryParam to 1-30
-        // console.log('days used: ', days)
+        console.log('days used for fetch: ', days)
         const queries = `?detail=full&back=${days}`
         const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent/notable${queries}`, requestOptions);
         const resJson = await res.json();
@@ -66,7 +74,9 @@ export async function load({ params, url }) {
     }
 
     return {
-        days: daysLimiter(url.searchParams.get('days')) || 3,
+        hideUnconfirmed: checkBooleanQuery('hideUnconfirmed', url),
+        onlyRichMedia: checkBooleanQuery('onlyRichMedia', url),
+        days: days,
         location: fetchLocationName(),
         birdObs: fetchBirdData()
     }
@@ -135,13 +145,34 @@ function filterObservations(array) {
 
 // Make sure query param days is between 1-30
 function daysLimiter(number) {
+    // console.log('daysLimiter input: ', number);
     let trueNum;
-    if (typeof number !== 'number') {
+    if (!isNaN(Number.parseInt(number))) { // if parsed input IS a number, assign it to trueNum
         trueNum = Number.parseInt(number)
+    } else { // if parsed input is NOT a number, give it 7 as a default
+        trueNum = 7; // default
     }
-    if (trueNum > 30) {
+    if (trueNum > 30) { // if greater than 30, reduce to 30
         return 30;
-    } else if (trueNum < 1) {
+    } else if (trueNum < 1) { // if less than 1 make it 1
         return 1
     } else return trueNum
 }
+
+// check queryParams for filters and validate
+function checkBooleanQuery(key, url) {
+    const value = url.searchParams.get(key)?.toLowerCase();
+    const valueBool = value === 'true';
+    console.log('value', key, value);
+    console.log('valueBool', key, valueBool);
+    console.log('filters store!!', get(filters));
+    let returnValue;
+    if (value !== null && value) { 
+        returnValue = valueBool;
+    } else {
+        returnValue = get(filters)[key].value; 
+    }
+    console.log('CHECK BOOLEAN QUERY', key, returnValue)
+    return returnValue;
+}
+
