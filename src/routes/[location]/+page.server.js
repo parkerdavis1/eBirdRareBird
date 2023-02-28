@@ -55,7 +55,7 @@ export async function load({ params, url }) {
     if (url.searchParams.get('days') !== null) { //if there are searchParams, use them
         days = daysLimiter(url.searchParams.get('days')); //daysLimiter limits queryParam to 1-30
     } else { 
-        days = get(filters.days); // else use the filters.days default
+        days = get(filters).days; // else use the filters.days default
     }
 
     const fetchBirdData = async () => {
