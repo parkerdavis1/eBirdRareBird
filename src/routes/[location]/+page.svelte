@@ -23,20 +23,11 @@
     let groupList;
     let showAll;
 
-    $: { 
-        $filters.days = data.days
-        // $filters.hideUnconfirmed.value = data.hideUnconfirmed
-        // $page.url.searchParams.set('hideUnconfirmed', $filters.hideUnconfirmed.value); 
-        // $filters.onlyRichMedia.value = data.onlyRichMedia
-        // $page.url.searchParams.set('onlyRichMedia', $filters.onlyRichMedia.value); 
-        // if (browser) {
-        //     goto(`?${$page.url.searchParams.toString()}`);
-        // }
-    }
+    $: { $filters.days = data.days }
 
     let sortTypes = ['taxonomic', 'alpha', 'location', 'date']
-    $: if ($page.url.searchParams.get('sortType') !== null) {
-        sortTypes.forEach(type => {
+    $: if ($page.url.searchParams.get('sortType') !== null) { // if there are sortType query params
+        sortTypes.forEach(type => { // cycle through the sortTypes and if it matches one (validation), set the sortType store
             if (type === $page.url.searchParams.get('sortType').toLowerCase()) {
                 $filters.sortType = $page.url.searchParams.get('sortType').toLowerCase();
             }
@@ -221,7 +212,7 @@
 
         {#if $loading}
             <p class="animate-pulse">Loading...</p>
-        {:else if birdData?.length < 1}
+        {:else if filteredData?.length < 1}
             <p>No results</p>
         {:else}
             {#if birdData}

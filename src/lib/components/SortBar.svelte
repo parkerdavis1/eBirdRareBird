@@ -77,7 +77,7 @@
         <input type="checkbox" id="showAll" bind:checked={showAll}>
         <label for="showAll">Expand all</label>
     </div> -->
-    <div class="flex items-center gap-x-4 w-full flex-wrap md:flex-nowrap">
+    <div class="flex items-start gap-x-4 w-full md:flex-nowrap">
         <div class="flex justify-start gap-2 flex-wrap">
                 <button on:click={() => dispatch('openFilterModal')}>
                     <FilterTag filter={daysAgoFilter} daysAgo={true}/>
@@ -86,13 +86,8 @@
                 <FilterTag filter={filter} />
             {/each}
         </div>
-        <div class="ml-auto relative">
-            <!-- <select name="sort" id="sort" bind:value={$filters.sortType}>
-                <option value="taxonomic">Species (taxonomic)</option>
-                <option value="alpha">Species (alphabetic)</option>
-                <option value="location">Location</option>
-                <option value="date">Date</option>
-            </select> -->
+
+        <div class="ml-auto relative whitespace-nowrap">
             <button class="flex items-center text-sm" on:click={() => openSort = !openSort}>Sort by 
                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                     <path fill="currentColor" d="m4.427 7.427l3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"/>

@@ -42,14 +42,14 @@ let filtersDefault = {
     days: 7
 }
 
-export const filters = writable(filtersDefault);
+// export const filters = writable(filtersDefault);
 
-// export const filters = writable(browser ? JSON.parse(sessionStorage.getItem('filters')) || filtersDefault : filtersDefault)
-// filters.subscribe(value => {
-//     if (browser) {
-//         sessionStorage.filters = JSON.stringify(value)
-//     }
-// })
+export const filters = writable(browser ? JSON.parse(sessionStorage.getItem('filters')) || filtersDefault : filtersDefault)
+filters.subscribe(value => {
+    if (browser) {
+        sessionStorage.filters = JSON.stringify(value)
+    }
+})
 
 // can't do this because opening one will open all if they are bound to its value
 // export const showAll = writable(false);

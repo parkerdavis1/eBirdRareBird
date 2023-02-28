@@ -54,12 +54,12 @@ export async function load({ params, url }) {
     let days;
     if (url.searchParams.get('days') !== null) { //if there are searchParams, use them
         days = daysLimiter(url.searchParams.get('days')); //daysLimiter limits queryParam to 1-30
-    } else { // else use the filters.days default
-        days = get(filters.days); 
+    } else { 
+        days = get(filters.days); // else use the filters.days default
     }
 
     const fetchBirdData = async () => {
-        console.log('days used for fetch: ', days)
+        // console.log('days used for fetch: ', days)
         const queries = `?detail=full&back=${days}`
         const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent/notable${queries}`, requestOptions);
         const resJson = await res.json();
@@ -74,8 +74,8 @@ export async function load({ params, url }) {
     }
 
     return {
-        hideUnconfirmed: checkBooleanQuery('hideUnconfirmed', url),
-        onlyRichMedia: checkBooleanQuery('onlyRichMedia', url),
+        // hideUnconfirmed: checkBooleanQuery('hideUnconfirmed', url),
+        // onlyRichMedia: checkBooleanQuery('onlyRichMedia', url),
         days: days,
         location: fetchLocationName(),
         birdObs: fetchBirdData()
@@ -163,16 +163,16 @@ function daysLimiter(number) {
 function checkBooleanQuery(key, url) {
     const value = url.searchParams.get(key)?.toLowerCase();
     const valueBool = value === 'true';
-    console.log('value', key, value);
-    console.log('valueBool', key, valueBool);
-    console.log('filters store!!', get(filters));
+    // console.log('value', key, value);
+    // console.log('valueBool', key, valueBool);
+    // console.log('filters store!!', get(filters));
     let returnValue;
     if (value !== null && value) { 
-        returnValue = valueBool;
+        returnValue = valueBool; // if input is valid boolean, return that value
     } else {
-        returnValue = get(filters)[key].value; 
+        returnValue = get(filters)[key].value; // else return the stored boolean
     }
-    console.log('CHECK BOOLEAN QUERY', key, returnValue)
+    // console.log('CHECK BOOLEAN QUERY', key, returnValue)
     return returnValue;
 }
 
