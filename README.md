@@ -1,3 +1,3 @@
 # Alternate eBird Rare Bird Alert
 
-Testing Sveltekit and eBird API
+Using Sveltekit & TailwindCSS, I spruce up eBird's Rare Bird Alert.

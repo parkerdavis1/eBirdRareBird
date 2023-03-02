@@ -22,7 +22,7 @@
         <div class="inline">
             <span>{groupName}</span> 
             {#if !showAll}
-            <span id="circle" class="relative bottom-[1px] opacity-80 circle-badge inline-block text-xs bg-sky-300/20 rounded-full px-2 mx-1">{obsOfSpecies.length}</span>
+                <span id="circle" class="relative bottom-[1px] opacity-80 circle-badge inline-block text-xs bg-sky-300/20 rounded-full px-2 mx-1">{obsOfSpecies.length}</span>
             {/if}
         </div>
     </summary>

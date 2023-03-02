@@ -33,8 +33,6 @@
             }
         })
     }
-        
-    
 
     $: if (form) {
         for (const [key, value] of Object.entries(form)) {
@@ -42,23 +40,18 @@
                 $allComments[key] = value;
             }
         }
-        // console.log($allComments);
-        // console.log('FORM', form)
     }
 
     $: searchInput = form?.searchInput
 
     let regionData;
     $: if (form?.regionResults) {
-        // console.log('form dot regionresults', form.regionResults)
         regionData = form.regionResults
     }
 
-    $: birdData = data.birdObs  
-
+    $: birdData = data.birdObs
     let filteredData;
     $: {
-        // console.log('changing bird data now!')
         $loading = false
         filteredData = filterObservations(birdData);
         groupedBirdData = groupBy(filteredData, $filters.sortType);

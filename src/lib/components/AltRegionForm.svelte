@@ -80,7 +80,7 @@
             form="regionSearch"
             bind:value={regionInputText}
             bind:this={regionInputElement}
-            on:input={debounce(regionInputChange, 500)}
+            on:input={debounce(regionInputChange, 300)}
             autocomplete="off"
             placeholder="Enter a county"
             class="w-full max-w-full focus:outline-none"

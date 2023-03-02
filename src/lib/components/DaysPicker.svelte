@@ -3,12 +3,10 @@
     import { filters } from '$lib/store'
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
-    console.log('PAGE', $page)
 
 
     let currentActive;
     $: if (!home) {
-        // console.log('searchParamsDays', $page.url.searchParams.get('days'))
         currentActive = $filters.days
     }
     $: if (home) {

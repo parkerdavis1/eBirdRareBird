@@ -63,7 +63,7 @@
     }
 
     a:hover path {
-        @apply fill-sky-800;
+        @apply fill-sky-700;
     }
 
     a {
