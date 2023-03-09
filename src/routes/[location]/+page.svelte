@@ -52,7 +52,7 @@
     $: birdData = data.birdObs
     let filteredData;
     $: {
-        $loading = false
+        // $loading = false
         filteredData = filterObservations(birdData);
         groupedBirdData = groupBy(filteredData, $filters.sortType);
         if ($filters.sortType !== 'taxonomic') {
