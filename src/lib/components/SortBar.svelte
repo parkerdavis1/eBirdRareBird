@@ -70,6 +70,11 @@
         $filters.sortType = sortType;
         openSort = false;
    }
+
+   function handleSortByOutclick() {
+        openSort = false;
+   }
+
 </script>
 
 <div id="results-container" class="flex flex-row flex-wrap sm:flex-row items-baseline gap-x-4 mt-4 relative">
@@ -88,7 +93,12 @@
         </div>
 
         <div class="ml-auto relative whitespace-nowrap">
-            <button class="flex items-center text-sm" on:click={() => openSort = !openSort}>Sort by 
+            <button 
+                class="flex items-center text-sm" 
+                on:click={() => openSort = !openSort}
+                use:clickOutside on:outclick={handleSortByOutclick}
+                >
+                Sort by 
                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                     <path fill="currentColor" d="m4.427 7.427l3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"/>
                 </svg>
