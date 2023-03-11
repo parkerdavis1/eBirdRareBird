@@ -96,7 +96,6 @@
             <button 
                 class="flex items-center text-sm" 
                 on:click={() => openSort = !openSort}
-                use:clickOutside on:outclick={handleSortByOutclick}
                 >
                 Sort by 
                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -104,7 +103,10 @@
                 </svg>
             </button>
             {#if openSort}
-                <div class="sort-modal">
+                <div class="sort-modal" 
+                use:clickOutside on:outclick={handleSortByOutclick}
+            
+                >
                     <button class="sort-options" on:click={() => handleSortClick('taxonomic')}>Species (taxonomic)</button>
                     <button class="sort-options" on:click={()=> handleSortClick('alpha')}>Species (alphabetic)</button>
                     <button class="sort-options" on:click={()=> handleSortClick('location')}>Location</button>
