@@ -72,7 +72,9 @@
    }
 
    function handleSortByOutclick() {
-        openSort = false;
+        setTimeout(() => {
+            openSort = false;
+        }, 0);
    }
 
 </script>
