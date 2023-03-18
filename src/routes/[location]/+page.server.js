@@ -61,9 +61,11 @@ export async function load({ params, url }) {
     const fetchBirdData = async () => {
         // console.log('days used for fetch: ', days)
         const queries = `?detail=full&back=${days}`
+        // const queries = `?detail=full&back=${days}&maxResults=3`
         const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent/notable${queries}`, requestOptions);
+        // const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent${queries}`, requestOptions);
         const resJson = await res.json();
-        // console.log('BIRD DATA, ', Array.isArray(resJson));
+        console.log('BIRD DATA, ', resJson);
         const filteredData = filterObservations(resJson);
         return filteredData;
     }
