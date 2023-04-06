@@ -156,7 +156,7 @@
     </div>
     {#if locationModalDisplay}
         <div class="relative z-10" 
-            transition:fly={{ y: -200 }}
+            transition:fly={{ x: -200 }}
             use:clickOutside on:outclick={handleLocationOutclick}
             >
             <LocationModal 
@@ -168,7 +168,7 @@
     {/if}
     {#if showFilterModal}
         <div class="relative z-10" 
-            transition:fly={{ y: -200 }}
+            transition:fly={{ x: 200 }}
             use:clickOutside on:outclick={handleFilterOutclick}
             > 
             <FilterModal
