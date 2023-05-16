@@ -8,6 +8,10 @@
     $: searchInput = form?.searchInput
 </script>
 
+<svelte:head>
+    <title>Rare Bird Alert!</title>
+</svelte:head>
+
 <div class="container mx-auto my-10 h-[90vh] h-[90svh] grid place-content-center w-full p-4">
     <div class="flex flex-wrap justify-center">
         <pre class="select-none">

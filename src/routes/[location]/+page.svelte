@@ -131,6 +131,12 @@
 
 
 </script>
+
+<svelte:head>
+    <title>{data.location} - Rare Bird Alert!</title>
+</svelte:head>
+
+
 <div class="dark:bg-slate-700 dark:text-slate-50  bg-slate-800 text-slate-50 text-sm">
     <div class="container mx-auto max-w-5xl
                 px-4 py-5

@@ -71,7 +71,7 @@ export async function load({ params, url }) {
         return filteredData;
     }
     const fetchLocationName = async () => {
-        const res = await fetch(`https://api.ebird.org/v2/ref/region/info/${params.location}`, requestOptions);
+        const res = await fetch(`https://api.ebird.org/v2/ref/region/info/${params.location}?regionNameFormat=detailednoqual`, requestOptions);
         const resJson = await res.json();
         return resJson.result;
     }
