@@ -37,7 +37,7 @@ export const actions = {
                 let comments = await getComments({ checklistId, obsId });
                 returnObject[obsId].comments = comments;
             }
-            console.log('returnObject: ', returnObject)
+            // console.log('returnObject: ', returnObject)
             return returnObject;
 
         } catch (err){
@@ -65,7 +65,8 @@ export async function load({ params, url }) {
         const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent/notable${queries}`, requestOptions);
         // const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent${queries}`, requestOptions);
         const resJson = await res.json();
-        console.log('BIRD DATA, ', resJson);
+        // console.log('BIRD DATA, ', resJson);
+        console.log("FETCHED BIRD DATA")
         const filteredData = filterObservations(resJson);
         return filteredData;
     }

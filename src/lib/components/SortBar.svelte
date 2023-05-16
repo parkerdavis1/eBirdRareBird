@@ -65,8 +65,8 @@
    $: daysAgoFilter = { value: { label: `Observations for past ${$filters.days == 1 ? 'day' : `${$filters.days} days`}` } }
 
    function handleSortClick(sortType) {
-        $page.url.searchParams.set('sortType', sortType)
-        goto(`?${$page.url.searchParams.toString()}`);
+        // $page.url.searchParams.set('sortType', sortType)
+        // goto(`?${$page.url.searchParams.toString()}`);
         $filters.sortType = sortType;
         openSort = false;
    }

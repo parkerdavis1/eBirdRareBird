@@ -5,7 +5,7 @@
     import customParseFormat from 'dayjs/plugin/customParseFormat'
     dayjs.extend(customParseFormat)
 
-    import { enhance } from '$app/forms';
+    import { enhance, applyAction } from '$app/forms';
     import { fade } from 'svelte/transition'
 
     import { allComments } from '$lib/store'
@@ -31,6 +31,13 @@
 
     async function getComment() {
         commentSubmitButton.click()
+    }
+
+    const enhanceGetComment = ({ form, data, action, cancel, submitter}) => {
+        // This function prevents the default invalidateAll() which causes the data to be fetched again
+        return async ({ result, update }) => {
+            await applyAction(result)
+        }
     }
 </script>
 <hr>
@@ -72,7 +79,7 @@
         </p>
     </div>
 
-    <form method="POST" action="?/getComments" class="col-start-2" bind:this={commentForm} on:submit|preventDefault use:enhance>
+    <form method="POST" action="?/getComments" class="col-start-2" bind:this={commentForm} on:submit|preventDefault use:enhance={enhanceGetComment}>
         <input type="hidden" name="checklistId" value={bird.subId}>
         <input type="hidden" name="obsId" value={bird.obsId}>
         <input type="hidden" name="hasRichMedia" value={bird.hasRichMedia}>

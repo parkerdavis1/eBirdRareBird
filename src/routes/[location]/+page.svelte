@@ -23,8 +23,9 @@
     let groupList;
     let showAll;
 
-    $: { $filters.days = data.days }
+    // $: { $filters.days = data.days } // assigns data days to filters store
 
+    /*
     let sortTypes = ['taxonomic', 'alpha', 'location', 'date']
     $: if ($page.url.searchParams.get('sortType') !== null) { // if there are sortType query params
         sortTypes.forEach(type => { // cycle through the sortTypes and if it matches one (validation), set the sortType store
@@ -33,6 +34,8 @@
             }
         })
     }
+    */
+    
 
     $: if (form) {
         for (const [key, value] of Object.entries(form)) {
@@ -49,12 +52,11 @@
         regionData = form.regionResults
     }
 
-    $: birdData = data.birdObs
-    let filteredData;
+    $: filteredData = filterObservations(data.birdObs);
+
     $: {
-        // $loading = false
-        filteredData = filterObservations(birdData);
         groupedBirdData = groupBy(filteredData, $filters.sortType);
+
         if ($filters.sortType !== 'taxonomic') {
             groupList = Object.keys(groupedBirdData).sort()
         } else {
@@ -63,6 +65,7 @@
     }
 
     function filterObservations(array) {
+        console.log('RUNNING OBSERVATIONS FILTER', Date.now())
         let obsIds = [];
         let obsArr = [];
         array.forEach(birdObs => {
@@ -80,6 +83,7 @@
     }
 
     function groupBy (array, sortType) {
+        console.log('RUNNING GROUPING FUNCTION', Date.now())
         let groupedObj = {};
         array.forEach(birdObs => {
             let groupId;
@@ -208,7 +212,7 @@
         {:else if filteredData?.length < 1}
             <p>No results</p>
         {:else}
-            {#if birdData}
+            {#if filteredData}
                 {#if $filters.sortType === 'date'}
                     {#each filteredData as bird (bird.obsId)}
                         <BirdObservation 
