@@ -52,7 +52,7 @@
         regionData = form.regionResults
     }
 
-    $: filteredData = filterObservations(data.birdObs);
+    $: filteredData = filterObservations(data.birdObs, $filters);
 
     $: {
         groupedBirdData = groupBy(filteredData, $filters.sortType);
@@ -64,15 +64,15 @@
         }
     }
 
-    function filterObservations(array) {
+    function filterObservations(array, filters) {
         console.log('RUNNING OBSERVATIONS FILTER', Date.now())
         let obsIds = [];
         let obsArr = [];
         array.forEach(birdObs => {
             // filter unconfirmed sightings
-            if ($filters.hideUnconfirmed.value && !birdObs.obsValid) return;
+            if (filters.hideUnconfirmed.value && !birdObs.obsValid) return;
             // filter media sightings
-            if ($filters.onlyRichMedia.value && !birdObs.hasRichMedia) return;
+            if (filters.onlyRichMedia.value && !birdObs.hasRichMedia) return;
             // remove duplicate sightings
             if (!obsIds.includes(birdObs.obsId)) {
                 obsIds.push(birdObs.obsId);
