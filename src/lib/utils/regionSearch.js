@@ -8,10 +8,10 @@ export const regionSearch = async ({ request }) => {
     try {
         const res = await fetchCookie(`https://api.ebird.org/v2/ref/region/find?key=jfekjedvescr&q=${query}`);
         const resJson = await res.json();
-        console.log('region search result', resJson);
+        // console.log('region search result', resJson);
         const regex = /.+-.+-.+/;
         const onlyCounties = resJson.filter(result => regex.test(result.code));
-        console.log('filtered for counties', onlyCounties)
+        // console.log('filtered for counties', onlyCounties)
         return {
             searchInput: query,
             regionResults: onlyCounties

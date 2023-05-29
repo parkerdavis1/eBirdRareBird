@@ -22,19 +22,6 @@
     let groupedBirdData;
     let groupList;
     let showAll;
-
-    // $: { $filters.days = data.days } // assigns data days to filters store
-
-    /*
-    let sortTypes = ['taxonomic', 'alpha', 'location', 'date']
-    $: if ($page.url.searchParams.get('sortType') !== null) { // if there are sortType query params
-        sortTypes.forEach(type => { // cycle through the sortTypes and if it matches one (validation), set the sortType store
-            if (type === $page.url.searchParams.get('sortType').toLowerCase()) {
-                $filters.sortType = $page.url.searchParams.get('sortType').toLowerCase();
-            }
-        })
-    }
-    */
     
 
     $: if (form) {
@@ -68,6 +55,7 @@
         console.log('RUNNING OBSERVATIONS FILTER', Date.now())
         let obsIds = [];
         let obsArr = [];
+
         array.forEach(birdObs => {
             // filter unconfirmed sightings
             if (filters.hideUnconfirmed.value && !birdObs.obsValid) return;
@@ -85,6 +73,7 @@
     function groupBy (array, sortType) {
         console.log('RUNNING GROUPING FUNCTION', Date.now())
         let groupedObj = {};
+
         array.forEach(birdObs => {
             let groupId;
             if (sortType === 'alpha' || sortType === 'taxonomic') {

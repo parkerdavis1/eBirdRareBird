@@ -103,7 +103,7 @@ export const actions = {
         try {
             const res = await fetchCookie(`https://api.ebird.org/v2/ref/region/find?key=jfekjedvescr&q=${query}`);
             const resJson = await res.json();
-            console.log('region search result', resJson);
+            // console.log('region search result', resJson);
             return {
                 regionResults: resJson
             }

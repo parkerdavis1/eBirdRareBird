@@ -132,6 +132,7 @@ function getArrayOfAssets(arr) {
 function filterObservations(array) {
     let obsIds = [];
     let obsArr = [];
+
     array.forEach(birdObs => {
         // filter unconfirmed sightings
         // if ($filters.hideUnconfirmed && !birdObs.obsValid) return;
