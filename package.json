@@ -18,7 +18,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"dayjs": "^1.11.9",
+		"dayjs": "^1.11.10",
 		"fetch-cookie": "^2.1.0"
 	}
 }
