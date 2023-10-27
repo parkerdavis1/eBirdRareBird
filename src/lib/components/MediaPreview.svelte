@@ -1,7 +1,6 @@
 <script>
     export let media;
     export let delay;
-    // console.log('media info', media)
 
     let loaded = false;
     let container;
@@ -28,12 +27,8 @@
                     p-1
                     bg-slate-900/75 text-slate-100
                     ">
-            <!-- <p>{media.commonName}</p> -->
             <span class="text-xs font-bold">&copy; {media.userDisplayName}</span>
             <span class="text-xs">Macaulay Library</span>
-            <!-- {#if media.obsComments}
-                <p>{media.obsComments}</p>
-            {/if} -->
         </div>
    
 

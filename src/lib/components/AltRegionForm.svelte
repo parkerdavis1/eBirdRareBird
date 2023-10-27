@@ -1,40 +1,25 @@
 <script>
-    import { enhance, applyAction } from '$app/forms';
+    import { enhance } from '$app/forms';
     import { debounce } from '$lib/utils/debounce';
     import { clickOutside } from '$lib/utils/click-outside';
     export let regionData;
 
-    import { region, loading, filters } from '$lib/store';
-
-    function handleSubmit() {
-        $loading = true;
-    }
+    import { region, filters } from '$lib/store';
 
     let regionResultsList;
     $: if (regionData) {
-        // console.log('regionData: ', regionData)
         regionResultsList = regionData;
-        // selectOptions = regionData;
     };
 
-    let regionSelect;
     let regionSearchForm;
     let regionInputElement;
-    let selectElement;
     let regionSubmitForm;
     let regionSearchHiddenSubmitButton;
     let regionSearchLoading = false;
     let regionInputText = '';
 
     function regionInputChange() {
-        // regionSearchForm.submit();
         regionSearchHiddenSubmitButton.click()
-        // regionInputElement.blur();
-    }
-
-    function handleRegionSelect() {
-        $region.region = loc.code;
-        regionSubmitForm.submit();
     }
     
     function handleOutclick() {
@@ -59,7 +44,7 @@
 
 <form method="POST" bind:this={regionSearchForm} id="regionSearch" action="?/regionSearch" on:submit|preventDefault 
     class="relative w-full"
-    use:enhance={({ form, data, action }) => {
+    use:enhance={() => {
             regionSearchLoading = true;
         return async ({ result }) => {
             regionResultsList = result?.data.regionResults;
@@ -106,7 +91,7 @@
                 <ul>
                     {#if regionResultsList.length > 0}
                         {#each regionResultsList as loc}
-                        <li class="p-2 hover:bg-sky-100"> <!-- dark:hover:bg-sky-700 -->
+                        <li class="p-2 hover:bg-sky-100">
                             <button class="w-full text-left" type="submit" form="region" on:click={()=> $region.region=loc.code}>
                                 {loc.name}
                             </button>

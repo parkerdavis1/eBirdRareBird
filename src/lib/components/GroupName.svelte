@@ -1,7 +1,5 @@
 <script>
     import BirdObservation from "$lib/components/BirdObservation.svelte";
-    import { fade, slide } from 'svelte/transition'
-    import { quintOut } from 'svelte/easing'
 
     export let groupName;
     export let groupedBirdData;
@@ -17,8 +15,6 @@
 
 <details bind:open={showAll} class="transition-[margin] duration-200 ease-out open:mb-8">
     <summary class="cursor-pointer my-2">
-    <!-- <summary> -->
-        <!-- <div class="inline-flex items-center flex-nowrap"> -->
         <div class="inline">
             <span>{groupName}</span> 
             {#if !showAll}

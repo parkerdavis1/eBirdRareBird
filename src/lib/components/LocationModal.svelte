@@ -1,6 +1,4 @@
 <script>
-    import { createEventDispatcher } from "svelte";
-    const dispatch = createEventDispatcher();
     import AltRegionForm from "$lib/components/AltRegionForm.svelte";
     import CloseButton from "$lib/components/CloseButton.svelte";
     import { fade } from "svelte/transition";
@@ -24,9 +22,7 @@
             />
         </div>
     </div>
-    <!-- <div class="w-full flex justify-center mt-10">
-        <button class="bg-sky-700 px-2 py-1 rounded text-white" on:click={()=> dispatch('close')}>Done</button>
-    </div> -->
+
     <CloseButton on:close />
 
 </div>

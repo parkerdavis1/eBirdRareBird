@@ -15,7 +15,6 @@
             bg-slate-50 text-slate-800
             dark:bg-slate-600 dark:text-slate-50
             ">
-            <!-- bg-slate-800 text-slate-50 -->
     <span class="text-xs">{filter.value.label}</span>
     {#if !daysAgo}
         <button on:click={removeTag}>

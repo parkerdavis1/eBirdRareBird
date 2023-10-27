@@ -13,7 +13,6 @@
     import mapIcon from '$lib/icons/map-marker.svg';
     import user from '$lib/icons/person.svg';
     import calendar from '$lib/icons/calendar-month-rounded.svg';
-    import speechBubble from '$lib/icons/speech-bubble-ltr.svg';
     import camera from '$lib/icons/photo-camera-rounded.svg';
     import MediaPreview from '$lib/components/MediaPreview.svelte';
 
@@ -27,7 +26,6 @@
 
     let commentForm;
     let commentSubmitButton
-    let media;
 
     async function getComment() {
         commentSubmitButton.click()
@@ -63,7 +61,6 @@
         <a href="{checklistLink}" target="_blank" rel="noreferrer">
             <p class="text-sm flex gap-1 my-1">
                 <img src="{calendar}" alt="Calendar icon" class="inline">
-                <!-- {bird.obsDt} -->
                 {formattedDate}
             </p>
         </a>
@@ -87,7 +84,6 @@
 
         <details on:toggle|once={getComment}>
             <summary class="cursor-pointer">
-                <!-- <img src="{speechBubble}" alt="speech bubble icon" class="inline"> -->
                 <span class="text-sm">Details</span>
                 {#if bird.hasRichMedia}
                     <a href="{checklistLink}" target="_blank" rel="noreferrer">
@@ -102,9 +98,7 @@
                 <div class="col-start-2" in:fade>
                     <span class="text-sm" class:italic={obsDetails === 'No details'}>{obsDetails.comments}</span>
                     {#if obsDetails.media}
-                        <!-- <div class="media-container"> -->
                         <div class="flex gap-2 flex-wrap">
-                        <!-- <div class="grid gap-2 grid-cols-1 sm:grid-cols-2"> -->
                             {#each obsDetails.media as media, i}
                                 <MediaPreview media={media} delay={i}/>
                             {/each}
