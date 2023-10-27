@@ -1,10 +1,6 @@
 import { redirect } from '@sveltejs/kit'
 import { regionSearch } from '$lib/utils/regionSearch';
 
-export async function load({ params }) {
-    // console.log('params!', params);
-}
-
 export const actions = {
     regionSearch: regionSearch,
 

@@ -37,7 +37,6 @@ export const actions = {
                 let comments = await getComments({ checklistId, obsId });
                 returnObject[obsId].comments = comments;
             }
-            // console.log('returnObject: ', returnObject)
             return returnObject;
 
         } catch (err){
@@ -49,8 +48,6 @@ export const actions = {
 }
 
 export async function load({ params, url }) {
-    // console.log('params!', params);
-    // console.log('url', url)
     let days;
     if (url.searchParams.get('days') !== null) { //if there are searchParams, use them
         days = daysLimiter(url.searchParams.get('days')); //daysLimiter limits queryParam to 1-30
@@ -59,13 +56,9 @@ export async function load({ params, url }) {
     }
 
     const fetchBirdData = async () => {
-        // console.log('days used for fetch: ', days)
         const queries = `?detail=full&back=${days}`
-        // const queries = `?detail=full&back=${days}&maxResults=3`
         const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent/notable${queries}`, requestOptions);
-        // const res = await fetch(`https://api.ebird.org/v2/data/obs/${params.location}/recent${queries}`, requestOptions);
         const resJson = await res.json();
-        // console.log('BIRD DATA, ', resJson);
         console.log("FETCHED BIRD DATA")
         const filteredData = filterObservations(resJson);
         return filteredData;
@@ -77,8 +70,6 @@ export async function load({ params, url }) {
     }
 
     return {
-        // hideUnconfirmed: checkBooleanQuery('hideUnconfirmed', url),
-        // onlyRichMedia: checkBooleanQuery('onlyRichMedia', url),
         days: days,
         location: fetchLocationName(),
         birdObs: fetchBirdData()
@@ -95,9 +86,7 @@ async function getComments({ checklistId, obsId }) {
     const specificObs = resJson.obs.find(obs => obs.obsId === obsId);
 
     let comments = specificObs.comments;
-    // console.log('returnObject: ', returnObject)
     if (!comments) {
-        // returnObject[obsId].comments = 'No details';
         return "No details"
     }
     return comments
@@ -110,16 +99,11 @@ async function getMedia(obsId) {
         redirect: 'follow'
     })
     const resJson = await res.json()
-    // console.log('photo: ', resJson)
     const catIds = getArrayOfAssets(resJson);
-    // console.log('catIds array: ', catIds);
     const catIdsString = catIds.toString();
-    // console.log('catIds string', catIdsString);
     const mlRes = await fetchCookie(`https://search.macaulaylibrary.org/api/v1/search?includeUnconfirmed=T&sort=id_asc&catId=${catIdsString}`);
     const mlResJson = await mlRes.json();
-    // console.log('mlResJson', mlResJson);
     const resArr = await mlResJson.results.content;
-    // console.log('search response array', resArr);
     return resArr;
 }
 
@@ -134,11 +118,6 @@ function filterObservations(array) {
     let obsArr = [];
 
     array.forEach(birdObs => {
-        // filter unconfirmed sightings
-        // if ($filters.hideUnconfirmed && !birdObs.obsValid) return;
-        // filter media sightings
-        // if ($filters.onlyRichMedia && !birdObs.hasRichMedia) return;
-        // remove duplicate sightings
         if (!obsIds.includes(birdObs.obsId)) {
             obsIds.push(birdObs.obsId);
             obsArr.push(birdObs);
@@ -149,7 +128,6 @@ function filterObservations(array) {
 
 // Make sure query param days is between 1-30
 function daysLimiter(number) {
-    // console.log('daysLimiter input: ', number);
     let trueNum;
     if (!isNaN(Number.parseInt(number))) { // if parsed input IS a number, assign it to trueNum
         trueNum = Number.parseInt(number)
@@ -167,16 +145,12 @@ function daysLimiter(number) {
 function checkBooleanQuery(key, url) {
     const value = url.searchParams.get(key)?.toLowerCase();
     const valueBool = value === 'true';
-    // console.log('value', key, value);
-    // console.log('valueBool', key, valueBool);
-    // console.log('filters store!!', get(filters));
     let returnValue;
     if (value !== null && value) { 
         returnValue = valueBool; // if input is valid boolean, return that value
     } else {
         returnValue = get(filters)[key].value; // else return the stored boolean
     }
-    // console.log('CHECK BOOLEAN QUERY', key, returnValue)
     return returnValue;
 }
 

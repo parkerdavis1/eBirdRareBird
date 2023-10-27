@@ -1,12 +1,8 @@
 <script>
-    import { filters, isRadiusView, region } from '$lib/store'
+    import { filters } from '$lib/store'
     import { createEventDispatcher } from 'svelte';
-    import { page } from '$app/stores';
-    import { goto } from '$app/navigation';
-    import FilterModal from '$lib/components/FilterModal.svelte';
     import FilterTag from '$lib/components/FilterTag.svelte';
     import { clickOutside } from '$lib/utils/click-outside';
-    import { fade, fly } from 'svelte/transition'
 
     const dispatch = createEventDispatcher();
 
@@ -26,7 +22,6 @@
     let showFilterModal = false;
 
     function handleFilterButtonClick() {
-        // console.log("handleFilterButtonClick")
         if (showFilterModal == false) {
             showFilterModal = true;
         }
@@ -48,25 +43,16 @@
    function getActiveFilters() {
         let activeFilters = []
         for (const [key, value] of Object.entries($filters)) {
-            // console.log('[key, value]', [key, value])
             if (value.value && value.value === true) {
                 activeFilters.push({ key, value })
             }
         }
-        // console.log('activeFilters!', activeFilters)
         return activeFilters;
    } 
-
-//    $: days = $page.url.searchParams.get('days')
-   $: {
-    // console.log('days store from sort bar:', $filters.days)
-   }
 
    $: daysAgoFilter = { value: { label: `Observations for past ${$filters.days == 1 ? 'day' : `${$filters.days} days`}` } }
 
    function handleSortClick(sortType) {
-        // $page.url.searchParams.set('sortType', sortType)
-        // goto(`?${$page.url.searchParams.toString()}`);
         $filters.sortType = sortType;
         openSort = false;
    }
@@ -80,10 +66,6 @@
 </script>
 
 <div id="results-container" class="flex flex-row flex-wrap sm:flex-row items-baseline gap-x-4 mt-4 relative">
-    <!-- <div class:hidden={$filters.sortType === 'date'}>
-        <input type="checkbox" id="showAll" bind:checked={showAll}>
-        <label for="showAll">Expand all</label>
-    </div> -->
     <div class="flex items-start gap-x-4 w-full md:flex-nowrap">
         <div class="flex justify-start gap-2 flex-wrap">
                 <button on:click={() => dispatch('openFilterModal')}>
@@ -128,8 +110,6 @@
         top: calc(100% + 1rem);
         position: absolute;
         right: 0;
-        /* background: #ffffff; */
-        /* border: 1px solid #000000; */
         @apply z-10 border-slate-300 bg-white dark:bg-slate-900 dark:border-slate-400
         border p-4 px-6 flex flex-col gap-1 items-start shadow-lg ;
     }
@@ -146,16 +126,12 @@
     }
 
     .sort-modal:after {
-        /* border-color: rgba(255, 255, 255, 0); */
-        /* border-bottom-color: #ffffff; */
         border-width: 6px;
         margin-left: -6px;
         @apply border-b-white dark:border-b-slate-900;
     }
 
     .sort-modal:before {
-        /* border-color: rgba(0, 0, 0, 0); */
-        /* border-bottom-color: #000000; */
         border-width: 7px;
         margin-left: -7px;
         @apply border-b-slate-300 dark:border-b-slate-400;

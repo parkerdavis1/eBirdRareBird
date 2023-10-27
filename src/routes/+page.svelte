@@ -41,9 +41,4 @@
             <DaysPicker home={true} />
         </div>
     </div>
-    <!-- <form method="POST" id="region" action="?/region" class="flex flex-col flex-wrap align-center">
-        <input type="hidden" name="regionId" bind:value={$region.region}>
-        <label for="days">Time period (days ago): {$region.days}</label>
-        <input type="range" name="days" id="days" min="1" max="30" form="region" bind:value={$region.days}>
-    </form> -->
 </div>

@@ -1,5 +1,5 @@
 <script>
-    import { isRadiusView, filters, region } from "$lib/store";
+    import { filters } from "$lib/store";
     import CloseButton from "$lib/components/CloseButton.svelte";
     import DaysPicker from "./DaysPicker.svelte";
 </script>
@@ -11,17 +11,12 @@
     <div class="max-w-4xl mx-auto p-4 flex flex-col gap-4 justify-start flex-wrap">
         <h2 class="font-bold mb-4">Filters</h2>
 
-        <!-- <form method="POST" id="region" action="?/region" class="flex flex-col flex-wrap align-center" bind:this={slider}>
-            <input type="hidden" name="regionId" bind:value={$region.region}>
-            <label for="days">Time period (days ago): {$region.days}</label>
-            <input class="max-w-md" type="range" name="days" id="days" min="1" max="30" bind:value={$region.days} on:change={()=> slider.submit()}>
-        </form> -->
         <DaysPicker />
         <div class="whitespace-nowrap">
             <input type="checkbox" id="hideUnconfirmed" bind:checked={$filters.hideUnconfirmed.value}>
             <label for="hideUnconfirmed">Hide Unconfirmed</label>
         </div>
-        <div class:hidden={$isRadiusView} class="whitespace-nowrap">
+        <div class="whitespace-nowrap">
             <input type="checkbox" id="onlyRichMedia" bind:checked={$filters.onlyRichMedia.value}>
             <label for="onlyRichMedia">Media Only</label>
         </div>

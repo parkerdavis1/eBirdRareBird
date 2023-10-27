@@ -1,6 +1,5 @@
 <script>
-    import { fade, fly, slide, scale, draw } from "svelte/transition";
-    import { quintOut } from 'svelte/easing';
+    import { fly } from "svelte/transition";
 
     import BirdObservation from "$lib/components/BirdObservation.svelte";
     import SortBar from "$lib/components/SortBar.svelte";
@@ -9,9 +8,6 @@
     import FilterModal from "$lib/components/FilterModal.svelte";
 
     import { allComments, loading, filters, region } from '$lib/store';
-    import { page } from '$app/stores';
-    import { goto } from '$app/navigation';
-    import { browser } from '$app/environment'; 
 
     import taxonomy from '$lib/utils/taxonomy.json'
     import { clickOutside } from "$lib/utils/click-outside";
@@ -21,7 +17,6 @@
 
     let groupedBirdData;
     let groupList;
-    let showAll;
     
 
     $: if (form) {
@@ -187,7 +182,6 @@
             <h1 class="text-4xl font-bold">Rare Bird Alert</h1>
             <div>
                 <h2>{data.location}</h2>
-                <!-- <h3 class="text-xs">in the past {data.days} days</h3>  -->
             </div>
         </div>
 
