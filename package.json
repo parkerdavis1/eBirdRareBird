@@ -8,17 +8,18 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^1.0.0",
-		"@sveltejs/kit": "^1.0.0",
-		"autoprefixer": "^10.4.13",
-		"postcss": "^8.4.21",
-		"svelte": "^3.54.0",
-		"tailwindcss": "^3.2.4",
-		"vite": "^4.0.0"
+		"@sveltejs/adapter-auto": "^3.1.1",
+		"@sveltejs/kit": "^2.5.2",
+		"autoprefixer": "^10.4.17",
+		"postcss": "^8.4.35",
+		"svelte": "^4.2.12",
+		"tailwindcss": "^3.4.1",
+		"vite": "^5.1.4"
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/vite-plugin-svelte": "^3.0.2",
 		"dayjs": "^1.11.10",
-		"fetch-cookie": "^2.1.0"
+		"fetch-cookie": "^3.0.1"
 	}
 }
