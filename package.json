@@ -19,7 +19,7 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
-		"dayjs": "^1.11.10",
+		"dayjs": "^1.11.11",
 		"fetch-cookie": "^3.0.1"
 	}
 }
