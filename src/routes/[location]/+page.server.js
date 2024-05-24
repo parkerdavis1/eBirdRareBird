@@ -62,7 +62,6 @@ export async function load({ params, url }) {
             requestOptions
         );
         const resJson = await res.json();
-        console.log('FETCHED BIRD DATA');
         const filteredData = filterObservations(resJson);
         return filteredData;
     };
