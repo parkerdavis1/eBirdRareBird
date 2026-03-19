@@ -1,45 +1,62 @@
-import { EBIRD_API } from '$env/static/private';
-import { regionSearch, region } from '$lib/utils/regionSearch';
-import { filters } from '$lib/store';
-import { get } from 'svelte/store';
+import { env } from "$env/dynamic/private";
+import { error, fail, isHttpError } from "@sveltejs/kit";
+import { regionSearch, region } from "$lib/utils/regionSearch";
+import { filters } from "$lib/store";
+import { get } from "svelte/store";
 
-import makeFetchCookie from 'fetch-cookie';
+import makeFetchCookie from "fetch-cookie";
 const fetchCookie = makeFetchCookie(fetch);
 
-const myHeaders = new Headers();
-myHeaders.append('X-eBirdApiToken', EBIRD_API);
+function getRequestOptions() {
+    const headers = new Headers();
+    headers.append("X-eBirdApiToken", env.EBIRD_API);
+    return {
+        method: "GET",
+        headers,
+        redirect: "follow",
+    };
+}
 
-const requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow',
-};
+async function parseJSON(res, label) {
+    if (!res.ok) {
+        const text = await res.text();
+        console.error(`[${label}] HTTP ${res.status}: ${text}`);
+        throw error(res.status, `eBird API error (${label}): ${res.status}`);
+    }
+    return res.json();
+}
 
 export const actions = {
     getComments: async ({ request }) => {
         const data = await request.formData();
-        const checklistId = data.get('checklistId');
-        const obsId = data.get('obsId');
-        const hasRichMedia = data.get('hasRichMedia');
+        const checklistId = data.get("checklistId");
+        const obsId = data.get("obsId");
+        const hasRichMedia = data.get("hasRichMedia");
 
         let returnObject = {};
         returnObject[obsId] = {};
 
         try {
-            if (hasRichMedia === 'true') {
+            if (hasRichMedia === "true") {
                 let [comments, mediaArr] = await Promise.allSettled([
                     getComments({ checklistId, obsId }),
                     getMedia(obsId),
                 ]);
-                returnObject[obsId].comments = comments.value;
-                returnObject[obsId].media = mediaArr.value;
+                returnObject[obsId].comments =
+                    comments.status === "fulfilled"
+                        ? comments.value
+                        : "No details";
+                returnObject[obsId].media =
+                    mediaArr.status === "fulfilled" ? mediaArr.value : [];
             } else {
                 let comments = await getComments({ checklistId, obsId });
                 returnObject[obsId].comments = comments;
             }
             return returnObject;
         } catch (err) {
-            console.log(err);
+            console.error(err);
+            if (isHttpError(err)) throw err;
+            return fail(500, { error: "Failed to load comments" });
         }
     },
     regionSearch: regionSearch,
@@ -48,9 +65,9 @@ export const actions = {
 
 export async function load({ params, url }) {
     let days;
-    if (url.searchParams.get('days') !== null) {
+    if (url.searchParams.get("days") !== null) {
         //if there are searchParams, use them
-        days = daysLimiter(url.searchParams.get('days')); //daysLimiter limits queryParam to 1-30
+        days = daysLimiter(url.searchParams.get("days")); //daysLimiter limits queryParam to 1-30
     } else {
         days = get(filters).days; // else use the filters.days default
     }
@@ -59,18 +76,18 @@ export async function load({ params, url }) {
         const queries = `?detail=full&back=${days}`;
         const res = await fetch(
             `https://api.ebird.org/v2/data/obs/${params.location}/recent/notable${queries}`,
-            requestOptions
+            getRequestOptions(),
         );
-        const resJson = await res.json();
+        const resJson = await parseJSON(res, "fetchBirdData");
         const filteredData = filterObservations(resJson);
         return filteredData;
     };
     const fetchLocationName = async () => {
         const res = await fetch(
             `https://api.ebird.org/v2/ref/region/info/${params.location}?regionNameFormat=detailednoqual`,
-            requestOptions
+            getRequestOptions(),
         );
-        const resJson = await res.json();
+        const resJson = await parseJSON(res, "fetchLocationName");
         return resJson.result;
     };
 
@@ -87,14 +104,14 @@ export async function load({ params, url }) {
 async function getComments({ checklistId, obsId }) {
     const res = await fetch(
         `https://api.ebird.org/v2/product/checklist/view/${checklistId}`,
-        requestOptions
+        getRequestOptions(),
     );
-    const resJson = await res.json();
+    const resJson = await parseJSON(res, "fetchComments");
     const specificObs = resJson.obs.find((obs) => obs.obsId === obsId);
 
     let comments = specificObs.comments;
     if (!comments) {
-        return 'No details';
+        return "No details";
     }
     return comments;
 }
@@ -104,17 +121,17 @@ async function getMedia(obsId) {
     const res = await fetchCookie(
         `https://ebird.org/obsservice/media?obsId=${obsId}`,
         {
-            method: 'GET',
-            redirect: 'follow',
-        }
+            method: "GET",
+            redirect: "follow",
+        },
     );
-    const resJson = await res.json();
+    const resJson = await parseJSON(res, "fetchMedia");
     const catIds = getArrayOfAssets(resJson);
     const catIdsString = catIds.toString();
     const mlRes = await fetchCookie(
-        `https://search.macaulaylibrary.org/api/v1/search?includeUnconfirmed=T&sort=id_asc&catId=${catIdsString}`
+        `https://search.macaulaylibrary.org/api/v1/search?includeUnconfirmed=T&sort=id_asc&catId=${catIdsString}`,
     );
-    const mlResJson = await mlRes.json();
+    const mlResJson = await parseJSON(mlRes, "fetchMedia-ml");
     const resArr = await mlResJson.results.content;
     return resArr;
 }
@@ -160,7 +177,7 @@ function daysLimiter(number) {
 // check queryParams for filters and validate
 function checkBooleanQuery(key, url) {
     const value = url.searchParams.get(key)?.toLowerCase();
-    const valueBool = value === 'true';
+    const valueBool = value === "true";
     let returnValue;
     if (value !== null && value) {
         returnValue = valueBool; // if input is valid boolean, return that value
