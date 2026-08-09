@@ -127,13 +127,23 @@ async function getMedia(obsId) {
     );
     const resJson = await parseJSON(res, "fetchMedia");
     const catIds = getArrayOfAssets(resJson);
-    const catIdsString = catIds.toString();
-    const mlRes = await fetchCookie(
-        `https://search.macaulaylibrary.org/api/v1/search?includeUnconfirmed=T&sort=id_asc&catId=${catIdsString}`,
+    // const catIdsString = catIds.toString();
+    // const mlRes =
+    //     await fetchCookie(
+    //         // `https://search.macaulaylibrary.org/api/v1/search?includeUnconfirmed=T&sort=id_asc&catId=${catIdsString}`,
+    //     );
+    // const mlResJson = await parseJSON(mlRes, "fetchMedia-ml");
+    // const resArr = await mlResJson.results.content;
+    // return resArr;
+
+    const imageUrls = [];
+    catIds.forEach((id) =>
+        imageUrls.push({
+            image_url: `https://cdn.download.ams.birds.cornell.edu/api/v2/asset/${id}/900`,
+            specimen_url: `https://macaulaylibrary.org/asset/${id}`,
+        }),
     );
-    const mlResJson = await parseJSON(mlRes, "fetchMedia-ml");
-    const resArr = await mlResJson.results.content;
-    return resArr;
+    return imageUrls;
 }
 
 // GET ARRAY OF ASSETS
